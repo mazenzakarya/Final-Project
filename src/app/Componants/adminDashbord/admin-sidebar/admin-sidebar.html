@@ -1,0 +1,101 @@
+
+<button class="btn btn-outline-dark m-2 d-md-none  " (click)="toggleSidebar()">
+  <i class="fas fa-bars"></i>
+</button>
+
+<nav   class="sidebar d-flex flex-column bg-light p-3 vh-100 shadow-sm"
+  [ngClass]="{
+    'd-none': !isSidebarVisible,
+    'd-md-flex': true,
+    'position-fixed top-0 start-0': true
+  }"
+  style="width: 250px; z-index: 1000;">
+  <h5 class="mb-4 text-center">
+     <i class="fas fa-user-shield me-2"></i> Admin
+  </h5>
+
+  <a class="nav-link py-3 px-2 rounded" (linkClicked)="hideSidebarOnMobile()"   routerLink="home" routerLinkActive="active-link">
+    <i class="fas fa-home me-2"></i> Home
+  </a>
+
+  <!-- Dropdown for Courses -->
+  <app-dropdown   (linkClicked)="hideSidebarOnMobile()" title="Courses" icon="fas fa-book-open" [links]="[
+    { label: 'Add Course', icon: 'fas fa-plus-circle', route: 'Addcourse' },
+    { label: 'Get Courses', icon: 'fas fa-list', route: 'getcourses' }
+  ]">
+  </app-dropdown>
+
+  <!-- Dropdown for Group -->
+  <!-- <div>
+    <a class="nav-link py-3 px-2 rounded d-flex justify-content-between align-items-center"
+       (click)="toggleGroups()" style="cursor: pointer;">
+      <span><i class="fas fa-book-open me-2"></i> Group</span>
+
+      <i [ngClass]="{ 'fas fa-chevron-down': !showGroups, 'fas fa-chevron-up': showGroups }"></i>
+    </a>
+
+    <div *ngIf="showGroups" class="ps-4">
+      <a class="nav-link py-2 px-2 rounded" routerLink="Addgroup" routerLinkActive="active-link">
+        <i class="fas fa-plus-circle me-1"></i> Add Group
+      </a>
+      <a class="nav-link py-2 px-2 rounded" routerLink="getgroup" routerLinkActive="active-link">
+           <i class="fas fa-users me-2"></i> Get Group
+      </a>
+    </div>
+  </div> -->
+  <app-dropdown (linkClicked)="hideSidebarOnMobile()" title="Group" icon="fas fa-users" [links]="[
+    { label: 'Add Group', icon: 'fas fa-plus-circle', route: 'Addgroup' },
+    { label: 'Get Groups', icon: 'fas fa-users', route: 'getgroup' }
+  ]">
+  </app-dropdown>
+
+  <!-- Dropdown subject -->
+
+  <app-dropdown (linkClicked)="hideSidebarOnMobile()" title="Subjects" icon="fas fa-book" [links]="[
+    { label: 'Add Subject', icon: 'fas fa-plus-circle', route: 'Addsubject' },
+    { label: 'Get Subjects', icon: 'fas fa-list', route: 'getsubject' }
+  ]">
+  </app-dropdown>
+  <!-- Dropdown for students -->
+  <app-dropdown (linkClicked)="hideSidebarOnMobile()" title="Student" icon="fas fa-user-graduate" [links]="[
+    { label: 'Add Student', icon: 'fas fa-user-plus', route: 'Addstudent' },
+    { label: 'Get Students', icon: 'fas fa-users', route: 'getstudent' },
+    { label: 'Student Details', icon: 'fas fa-id-card', route: 'userdetails' }
+  ]">
+  </app-dropdown>
+  <!-- Dropdown for employees -->
+  <app-dropdown (linkClicked)="hideSidebarOnMobile()" title="Employees" icon="fas fa-user-tie" [links]="[
+    { label: 'Add Employee', icon: 'fas fa-user-plus', route: 'Addemployee' },
+    { label: 'Get Employees', icon: 'fas fa-users', route: 'getemployee' }
+  ]">
+  </app-dropdown>
+  <!-- Dropdown for accounts -->
+  <app-dropdown (linkClicked)="hideSidebarOnMobile()" title="Finance" icon="fas fa-file-invoice-dollar" [links]="[
+    { label: 'Add Income', icon: 'fas fa-plus-circle', route: 'Addincome' },
+    { label: 'Add Expense', icon: 'fas fa-minus-circle', route: 'Addexpense' },
+    { label: 'Account Statement', icon: 'fas fa-receipt', route: 'AccountStatement' }
+  ]">
+
+  </app-dropdown>
+  <!-- Dropdown for Attendance -->
+<app-dropdown (linkClicked)="hideSidebarOnMobile()"
+  title="Attendance"
+  icon="fas fa-calendar-check"
+  [links]="[
+    { label: 'Student Attendance', route: 'student', icon: 'fas fa-user-graduate' },
+    { label: 'Employee Attendance', route: 'employee', icon: 'fas fa-user-tie' },
+    { label: 'Student Report', route: 'student-report', icon: 'fas fa-file-alt' },
+    { label: 'Employee Report', route: 'employee-report', icon: 'fas fa-file-invoice' }
+  ]">
+</app-dropdown>
+  <!-- Dropdown for Homework -->
+<app-dropdown (linkClicked)="hideSidebarOnMobile()"
+  title="Homework"
+  icon="fas fa-book"
+  [links]="[
+    { label: 'Add Homework', route: 'Addhomework', icon: 'fas fa-plus-circle' },
+    { label: 'Get Homework', route: 'gethomework', icon: 'fas fa-list-ul' }
+  ]">
+</app-dropdown>
+
+</nav>

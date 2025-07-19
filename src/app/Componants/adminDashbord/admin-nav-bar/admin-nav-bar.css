@@ -1,0 +1,6 @@
+.stdBgnav {
+  background-color: #1097cd; /* سماوي فاتح */
+}
+.navbar {
+  z-index: 1030; /* أعلى من السايد بار */
+}

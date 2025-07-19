@@ -1,0 +1,43 @@
+<nav class="d-flex flex-column bg-light p-3 vh-100 shadow-sm" style="width: 250px;">
+  <h5 class="mb-4 text-center"><i class="fas fa-user-graduate me-2"></i> Student</h5>
+
+  <a class="nav-link py-3 px-2 rounded" routerLink="/student/home" routerLinkActive="active-link">
+    <i class="fas fa-home me-2"></i> Home
+  </a>
+  <a class="nav-link py-3 px-2 rounded" routerLink="/student/courses" routerLinkActive="active-link">
+    <i class="fas fa-book-open me-2"></i> My Courses
+  </a>
+  <a class="nav-link py-3 px-2 rounded" routerLink="/student/assignments" routerLinkActive="active-link">
+    <i class="fas fa-pencil-alt me-2"></i> Assignments
+  </a>
+  <a class="nav-link py-3 px-2 rounded" routerLink="/student/exams" routerLinkActive="active-link">
+    <i class="fas fa-vial me-2"></i> Exams
+  </a>
+  <a class="nav-link py-3 px-2 rounded" routerLink="/student/grades" routerLinkActive="active-link">
+    <i class="fas fa-chart-line me-2"></i> My Grades
+  </a>
+  <a class="nav-link py-3 px-2 rounded" routerLink="/student/attendance" routerLinkActive="active-link">
+    <i class="fas fa-calendar-check me-2"></i> Attendance
+  </a>
+</nav>
+
+
+
+
+ <!-- <div>
+    <a class="nav-link py-3 px-2 rounded d-flex justify-content-between align-items-center"
+       (click)="toggleCourses()"
+       style="cursor: pointer;">
+      <span><i class="fas fa-book-open me-2"></i> My Courses</span>
+      <i [ngClass]="{ 'fas fa-chevron-down': !showCourses, 'fas fa-chevron-up': showCourses }"></i>
+    </a>
+
+    <div *ngIf="showCourses" class="ps-4">
+      <a class="nav-link py-2 px-2 rounded" routerLink="/student/courses/math" routerLinkActive="active-link">
+        <i class="fas fa-angle-right me-1"></i> Math
+      </a>
+      <a class="nav-link py-2 px-2 rounded" routerLink="/student/courses/physics" routerLinkActive="active-link">
+        <i class="fas fa-angle-right me-1"></i> Physics
+      </a>
+    </div>
+  </div> -->

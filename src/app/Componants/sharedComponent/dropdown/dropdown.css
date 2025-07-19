@@ -1,0 +1,31 @@
+.active-link {
+  background-color: rgba(16, 151, 205, 0.15); /* لون سماوي خفيف وشفاف */
+  color: #1097cd;
+  font-weight: 500;
+}
+
+
+.nav-link {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: #e9ecef; /* لون رمادي فاتح */
+  color: #000; /* لون النص */
+}
+
+
+.dropdown-content {
+  overflow: hidden;
+}
+.dropdown-title {
+  cursor: pointer;
+  padding: 10px;
+  font-weight: bold;
+}
+.dropdown-content a {
+  display: block;
+  padding: 8px 15px;
+  text-decoration: none;
+  color: #333;
+}

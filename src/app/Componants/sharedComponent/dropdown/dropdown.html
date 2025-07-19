@@ -1,0 +1,15 @@
+<a class="nav-link py-3 px-2 rounded d-flex justify-content-between align-items-center"
+   (click)="toggleDropdown()" style="cursor: pointer;">
+  <span><i class="{{ icon }} me-2"></i> {{ title }}</span>
+  <i class="fas" [class.fa-chevron-down]="!isOpen()" [class.fa-chevron-up]="isOpen()"></i>
+</a>
+
+@if (isOpen()) {
+  <div class="ps-4">
+    @for (link of links; track link.label) {
+      <a class="nav-link py-2 px-2 rounded" [routerLink]="link.route"   (click)="onLinkClick()" routerLinkActive="active-link">
+        <i class="{{ link.icon }} me-1"></i> {{ link.label }}
+      </a>
+    }
+  </div>
+}
