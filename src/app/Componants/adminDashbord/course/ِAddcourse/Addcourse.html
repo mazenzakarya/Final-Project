@@ -1,1 +1,55 @@
-<p>course works!</p>
+<div class="container d-flex justify-content-center align-items-center my-5">
+  <div class="card shadow p-4 w-100" style="max-width: 500px;">
+    <h3 class="text-center mb-4">Add New Course</h3>
+
+    <form [formGroup]="createCourseForm" (ngSubmit)="onSubmit()">
+      <!-- Course Name -->
+      <div class="mb-3">
+        <label for="courseName" class="form-label">Course Name</label>
+        <input
+          id="courseName"
+          type="text"
+          formControlName="courseName"
+          class="form-control"
+          [class.is-invalid]="f.courseName.touched && f.courseName.invalid"
+        />
+        @if (f.courseName.touched && f.courseName.invalid) {
+          <div class="invalid-feedback d-block">
+            @if (f.courseName.errors?.['required']) {
+              Course name is required
+            }
+            @if (f.courseName.errors?.['minlength']) {
+              Course name must be at least 3 characters long
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Level -->
+      <div class="mb-3">
+        <label for="level" class="form-label">Level</label>
+        <select
+          id="level"
+          formControlName="level"
+          class="form-select"
+          [class.is-invalid]="f.level.touched && f.level.invalid"
+        >
+          <option value="">Select level</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advanced">Advanced</option>
+        </select>
+        @if (f.level.touched && f.level.invalid) {
+          <div class="invalid-feedback d-block">
+            Level selection is required
+          </div>
+        }
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn btn-primary w-100" [disabled]="createCourseForm.invalid">
+        Add Course
+      </button>
+    </form>
+  </div>
+</div>

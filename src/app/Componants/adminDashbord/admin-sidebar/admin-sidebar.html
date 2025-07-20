@@ -3,7 +3,7 @@
   <i class="fas fa-bars"></i>
 </button>
 
-<nav   class="sidebar d-flex flex-column bg-light p-3 vh-100 shadow-sm"
+<nav   class="sidebar d-flex flex-column bg-light p-3  vh-100 shadow-sm"
   [ngClass]="{
     'd-none': !isSidebarVisible,
     'd-md-flex': true,
@@ -70,7 +70,7 @@
   ]">
   </app-dropdown>
   <!-- Dropdown for accounts -->
-  <app-dropdown (linkClicked)="hideSidebarOnMobile()" title="Finance" icon="fas fa-file-invoice-dollar" [links]="[
+  <app-dropdown (linkClicked)="hideSidebarOnMobile()" title="Fees" icon="fas fa-file-invoice-dollar" [links]="[
     { label: 'Add Income', icon: 'fas fa-plus-circle', route: 'Addincome' },
     { label: 'Add Expense', icon: 'fas fa-minus-circle', route: 'Addexpense' },
     { label: 'Account Statement', icon: 'fas fa-receipt', route: 'AccountStatement' }

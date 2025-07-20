@@ -1,1 +1,44 @@
-<p>addexpense works!</p>
+
+
+
+<div class="card w-50 m-auto bg-light p-4 rounded shadow">
+  <h5 class="mb-4 text-center">Add Expense</h5>
+  <form [formGroup]="ExpenseForm" (ngSubmit)="onSubmit()">
+
+    <!-- Date -->
+    <div class="mb-3">
+      <label>Date</label>
+      <input type="date" class="form-control" formControlName="date" />
+      <small class="text-danger" *ngIf="ExpenseForm.get('date')?.touched && ExpenseForm.get('date')?.invalid">
+        Date is required
+      </small>
+    </div>
+
+    <!-- Description -->
+    <div class="mb-3">
+      <label>Description</label>
+      <input type="text" class="form-control" formControlName="description" />
+      <small class="text-danger" *ngIf="ExpenseForm.get('description')?.touched && ExpenseForm.get('description')?.hasError('required')">
+        Description is required
+      </small>
+      <small class="text-danger" *ngIf="ExpenseForm.get('description')?.hasError('minlength')">
+        Description must be at least 3 characters
+      </small>
+    </div>
+
+    <!-- Amount -->
+    <div class="mb-3">
+      <label>Amount</label>
+      <input type="number" class="form-control" formControlName="amount" />
+      <small class="text-danger" *ngIf="ExpenseForm.get('amount')?.touched && ExpenseForm.get('amount')?.hasError('required')">
+        Amount is required
+      </small>
+      <small class="text-danger" *ngIf="ExpenseForm.get('amount')?.hasError('min')">
+        Amount must be at least 1
+      </small>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" class="btn btn-info d-block m-auto w-50 text-white">Save Expense</button>
+  </form>
+</div>

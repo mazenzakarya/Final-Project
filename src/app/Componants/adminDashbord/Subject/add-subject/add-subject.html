@@ -1,1 +1,39 @@
-<p>add-subject works!</p>
+<form [formGroup]="creatSubjectForm" (ngSubmit)="submitForm()" class="p-4 shadow rounded-4 bg-white w-50 mx-auto mt-4">
+
+  <div class="mb-3">
+    <label for="groupName" class="form-label">Group Name</label>
+    <select id="groupName" formControlName="GroupName" class="form-select">
+      <option value="">Select Group</option>
+      <option *ngFor="let group of groups" [value]="group">{{ group }}</option>
+    </select>
+    @if (f['GroupName'].touched && f['GroupName'].invalid) {
+      <div class="text-danger mt-1"><small>Group name is required.</small></div>
+    }
+  </div>
+
+  <div class="mb-3">
+    <label for="subjectName" class="form-label">Subject Name</label>
+    <input id="subjectName" type="text" class="form-control" formControlName="subjectName">
+    @if (f['subjectName'].touched && f['subjectName'].invalid) {
+      <div class="text-danger mt-1">
+        <small *ngIf="f['subjectName'].errors?.['required']">Subject name is required.</small>
+        <small *ngIf="f['subjectName'].errors?.['minlength']">At least 3 characters required.</small>
+      </div>
+    }
+  </div>
+
+  <div class="mb-3">
+    <label for="grade" class="form-label">Grade</label>
+    <input id="grade" type="number" class="form-control" formControlName="grade">
+    @if (f['grade'].touched && f['grade'].invalid) {
+      <div class="text-danger mt-1">
+        <small *ngIf="f['grade'].errors?.['required']">Mark is required.</small>
+        <small *ngIf="f['grade'].errors?.['min'] || f['grade'].errors?.['max']">Mark must be between 0 and 100.</small>
+      </div>
+    }
+  </div>
+
+  <button type="submit" class="btn btn-primary w-100" [disabled]="creatSubjectForm.invalid">Add Subject</button>
+</form>
+
+

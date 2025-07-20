@@ -5,18 +5,8 @@
 }
 
 
-.nav-link {
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
 
-.nav-link:hover {
-  background-color: #e9ecef; /* لون رمادي فاتح */
-  color: #000; /* لون النص */
-}
 
-.nav-link:hover i {
-  color: #000;
-}
 
 .sidebar {
   width: 250px;

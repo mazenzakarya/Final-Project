@@ -1,6 +1,6 @@
 import { Routes } from "@angular/router";
 import { Home } from "./home/home";
-import { AddCourse } from "./course/ِAddcourse/course";
+import { AddCourse } from "./course/ِAddcourse/Addcourse";
 import { Getcourses } from "./course/getcourses/getcourses";
 import { AddGroup } from "./Group/Addgroup/group";
 import { GetGroups } from "./Group/get-groups/get-groups";

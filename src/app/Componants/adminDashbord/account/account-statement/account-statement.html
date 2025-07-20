@@ -1,1 +1,31 @@
-<p>account-statement works!</p>
+<div class="container my-4">
+  <h2 class="mb-4 text-center">All Transactions</h2>
+
+  <table class="table table-bordered table-striped shadow-sm text-center">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Type</th>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of transactions; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>
+          <span [ngClass]="{
+            'text-success': transaction.type === 'Income',
+            'text-danger': transaction.type === 'Expense'
+          }">
+            {{ transaction.type }}
+          </span>
+        </td>
+        <td>{{ transaction.date }}</td>
+        <td>{{ transaction.description }}</td>
+        <td>{{ transaction.amount }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

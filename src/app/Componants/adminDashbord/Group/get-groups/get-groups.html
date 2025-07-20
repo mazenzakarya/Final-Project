@@ -1,1 +1,20 @@
-<p>get-groups works!</p>
+<div class="container mt-4">
+  <h2 class="text-center mb-4">All Groups</h2>
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let group of groups">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <h5 class="card-title text-primary">{{ group.groupName }}</h5>
+          <p class="card-text"><strong>Course:</strong> {{ group.courseName }}</p>
+          <p class="card-text"><strong>Instructor:</strong> {{ group.instructorName }}</p>
+          <p class="card-text"><strong>Level:</strong> {{ group.level }}</p>
+        </div>
+        <div class="card-footer bg-white border-0 text-end">
+          <button class="btn btn-outline-danger btn-sm" >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
