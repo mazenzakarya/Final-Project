@@ -1,1 +1,52 @@
-<p>add-student works!</p>
+<!-- نفس الكارد والأيقونة -->
+<div class="container ">
+  <div class="card shadow p-4">
+    <div class="text-center mb-4">
+      <i class="fas fa-user-graduate fa-3x text-primary"></i>
+      <h4 class="mt-2">Student Registration</h4>
+    </div>
+
+    <form [formGroup]="Studentform" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-md-4 mb-3" *ngFor="let field of [
+          {label:'Username', name:'username'},
+          {label:'Password', name:'password', type:'password'},
+          {label:'Role', name:'role'},
+          {label:'Name', name:'name'},
+          {label:'Date of Birth', name:'dob', type:'date'},
+          {label:'Gender', name:'gender', isSelect: true},
+          {label:'Image', name:'image', type:'file'},
+          {label:'National ID', name:'nationalId'},
+          {label:'Father Name', name:'fatherName'},
+          {label:'Mother Name', name:'motherName'},
+          {label:'Parent Phone', name:'parentPhone'},
+          {label:'Address', name:'address', isTextarea: true},
+        ]; let i = index">
+          <label>{{field.label}}</label>
+
+          <!-- Select -->
+          <select *ngIf="field.isSelect" class="form-control" [formControlName]="field.name">
+            <option value="">Select</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+
+          <!-- Textarea -->
+          <textarea *ngIf="field.isTextarea" rows="2" class="form-control" [formControlName]="field.name"></textarea>
+
+          <!-- Input -->
+          <input *ngIf="!field.isSelect && !field.isTextarea" [type]="field.type || 'text'" class="form-control"
+                 [formControlName]="field.name" />
+
+          <!-- Error -->
+          <div class="text-danger" *ngIf="isInvalid(field.name)">
+            {{ getError(field.name) }}
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary w-25 m-auto d-block" type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+

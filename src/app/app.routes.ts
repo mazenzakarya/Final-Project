@@ -1,3 +1,4 @@
+import { LoginPage } from './login-page/login-page';
 import { AdminLayout } from './layouts/admin-layout/admin-layout';
 import { studentRoutes } from './Componants/StudentDashBord/students.routes';
 import { instructorRoutes } from './Componants/Instructor/Instructor.routes';
@@ -10,6 +11,7 @@ import { AdminRoutes } from './Componants/adminDashbord/admin.routes';
 export const routes: Routes = [
   { path: '', redirectTo: "landingPage", pathMatch: 'full' },
   { path: 'landingPage', component: LandingPage },
+  { path: 'login', component: LoginPage },
   { path: "student", component: StudentLayout, children: studentRoutes },
   { path: "admin", component: AdminLayout, children:AdminRoutes  },
 

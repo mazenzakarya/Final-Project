@@ -1,0 +1,26 @@
+/* Background and layout */
+.login-container {
+  min-height: 80vh;
+  background-color: #e6eeff;
+  padding: 20px;
+}
+
+/* Card styling */
+.login-card {
+  background-color: #ffffff;
+  max-width: 900px;
+  width: 100%;
+  min-height: 500px; /* طوّلنا الكارد */
+}
+
+/* Image section */
+.login-image img {
+  max-width: 300px;
+}
+
+/* Site name */
+.site-name {
+  font-size: 32px;
+  color: #2c3e50;
+  letter-spacing: 0.5px;
+}

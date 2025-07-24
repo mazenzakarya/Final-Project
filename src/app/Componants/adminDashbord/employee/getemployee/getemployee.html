@@ -1,1 +1,42 @@
-<p>getemployee works!</p>
+<div class="container mt-5">
+  <div class="card shadow p-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="mb-0"><i class="fas fa-users text-primary me-2"></i>employee List</h4>
+      <button routerLink="/admin/Addemployee" class="btn btn-outline-primary btn-sm">
+        <i class="fas fa-plus me-1"></i> Add Employee
+      </button>
+    </div>
+
+    <table class="table table-bordered table-hover text-center align-middle">
+      <thead class="table-primary">
+        <tr>
+          <th>#</th>
+          <th>Username</th>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Gender</th>
+          <th>DOB</th>
+          <th>Salary</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employees; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ employee.username }}</td>
+          <td>{{ employee.name }}</td>
+          <td>{{ employee.role }}</td>
+          <td>{{ employee.gender }}</td>
+          <td>{{ employee.dob }}</td>
+          <td>{{ employee.salary }}</td>
+          <td>{{ employee.email }}</td>
+    
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="employees.length === 0" class="text-center text-muted">
+      No students to show.
+    </div>
+  </div>
+</div>

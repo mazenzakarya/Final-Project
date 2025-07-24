@@ -7,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './home.css'
 })
 export class Home {
+userName: string = '';
 
+ngOnInit() {
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  this.userName = user.name || 'Unknown User';
+}
 }

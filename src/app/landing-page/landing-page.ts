@@ -4,7 +4,7 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-landing-page',
-  imports: [CarouselModule],
+  imports: [RouterLink],
   templateUrl: './landing-page.html',
   styleUrl: './landing-page.css'
 })
