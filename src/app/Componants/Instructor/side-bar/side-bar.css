@@ -3,3 +3,10 @@
   color: #1097cd;
   font-weight: 500;
 }
+
+
+
+.nav-link:hover {
+  background-color: #e9ecef; /* لون رمادي فاتح */
+  color: #000; /* لون النص */
+}

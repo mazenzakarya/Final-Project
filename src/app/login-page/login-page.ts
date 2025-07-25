@@ -24,7 +24,7 @@ export class LoginPage {
         [
           Validators.required,
           Validators.minLength(5),
-          Validators.maxLength(10)
+          Validators.maxLength(20)
         ]
       ],
   password: [
@@ -32,7 +32,7 @@ export class LoginPage {
         [
           Validators.required,
           Validators.minLength(6),
-          Validators.maxLength(10)
+          Validators.maxLength(15)
         ]
       ]
   });
@@ -47,6 +47,8 @@ onSubmit() {
           this.messageType = 'success';
 
           localStorage.setItem('token', response.token);
+          localStorage.setItem('role', response.user.role);
+
           localStorage.setItem('user', JSON.stringify(response.user));
 
           const role = response.user.role;
@@ -55,9 +57,9 @@ onSubmit() {
             if (role === 'Admin') {
               this.router.navigate(['/admin/home']);
             } else if (role === 'Student') {
-              this.router.navigate(['/student']);
+              this.router.navigate(['/student/home']);
             } else if (role === 'Instructor') {
-              this.router.navigate(['/instructor']);
+              this.router.navigate(['/instructor/homework']);
             } else {
               this.router.navigate(['/']);
             }

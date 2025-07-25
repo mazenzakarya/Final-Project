@@ -2,12 +2,12 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-nav-bar',
   imports: [],
-  templateUrl: './navbar.html',
-  styleUrl: './navbar.css'
+  templateUrl: './nav-bar.html',
+  styleUrl: './nav-bar.css'
 })
-export class Navbar {
+export class NavBar {
     private readonly _Router = inject(Router);
 logout() {
   // امسح التوكن أو بيانات المستخدم من التخزين
@@ -16,5 +16,4 @@ logout() {
   // إعادة التوجيه لصفحة تسجيل الدخول
   this._Router.navigate(['/login']);
 }
-
 }

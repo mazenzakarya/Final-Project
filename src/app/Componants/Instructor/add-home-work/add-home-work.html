@@ -1,0 +1,45 @@
+<form [formGroup]="homeworkForm" (ngSubmit)="onSubmit()" class="p-4 w-50 m-auto shadow rounded bg-white">
+  <h4 class="text-center mb-4">Add Homework</h4>
+
+  <div class="mb-3">
+    <label for="group" class="form-label">Group</label>
+    <select id="group" class="form-select" formControlName="group">
+      <option value="">Select Group</option>
+      <option *ngFor="let g of groups" [value]="g">{{ g }}</option>
+    </select>
+    <div *ngIf="f.group.touched && f.group.invalid" class="text-danger">Group is required</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="subject" class="form-label">Subject</label>
+    <select id="subject" class="form-select" formControlName="subject">
+      <option value="">Select Subject</option>
+      <option *ngFor="let s of subjects" [value]="s">{{ s }}</option>
+    </select>
+    <div *ngIf="f.subject.touched && f.subject.invalid" class="text-danger">Subject is required</div>
+  </div>
+  <div class="mb-3">
+  <label for="setBy" class="form-label">Set By</label>
+  <select id="setBy" class="form-select" formControlName="setBy">
+    <option value="">Select Teacher</option>
+    <option *ngFor="let t of setByList" [value]="t">{{ t }}</option>
+  </select>
+  <div *ngIf="f.setBy.touched && f.setBy.invalid" class="text-danger">This field is required</div>
+</div>
+
+  <div class="mb-3">
+    <label for="description" class="form-label">Homework Description</label>
+    <input id="description" type="text" class="form-control" formControlName="description">
+    <div *ngIf="f.description.touched && f.description.invalid" class="text-danger">Description is required</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="dueDate" class="form-label">Due Date</label>
+    <input id="dueDate" type="date" class="form-control" formControlName="dueDate">
+    <div *ngIf="f.dueDate.touched && f.dueDate.invalid" class="text-danger">Due date is required</div>
+  </div>
+
+  <div class="text-center">
+    <button class="btn btn-primary w-50 m-auto d-inline" type="submit" [disabled]="homeworkForm.invalid">Submit</button>
+  </div>
+</form>
