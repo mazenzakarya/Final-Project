@@ -10,10 +10,23 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes, withViewTransitions(),withInMemoryScrolling({scrollPositionRestoration:"top"})), provideClientHydration(withEventReplay())
-  ,provideHttpClient(withFetch()),provideAnimations(),
-    provideToastr(),
-  ]
+
+    provideRouter(
+      routes,
+      withViewTransitions(),
+      withInMemoryScrolling({ scrollPositionRestoration: 'top' })
+    ),
+
+    provideClientHydration(withEventReplay()),
+    provideHttpClient(withFetch()),
+    provideAnimations(),
+
+
+    provideToastr({
+ 
+      preventDuplicates: true,
+      timeOut: 3000,
+    }),
+  ],
 };

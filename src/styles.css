@@ -1,1 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
+/* ✅ لون الخلفية للتوست نوع success */
+.toast-success {
+  margin-top: 50px !important; /* المسافة من الأعلى */
+  background-color: #4e73df !important; /* اللون اللي طلبته */
+  color: white !important;             /* لون الخط */
+}
+
+/* ✅ لون الخلفية للتوست نوع error */
+.toast-error {
+  background-color: #dc3545 !important;
+  color: white !important;
+}
+
+/* ✅ لون الخلفية للتوست نوع warning */
+.toast-warning {
+  background-color: #ffc107 !important;
+  color: black !important;
+}
+
+/* ✅ لون الخلفية للتوست نوع info */
+.toast-info {
+  background-color: #17a2b8 !important;
+  color: white !important;
+}

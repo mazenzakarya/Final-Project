@@ -1,16 +1,38 @@
 <div class="container py-4">
-  <h2 class="text-center mb-4">All Courses</h2>
-
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-@for (item of courses; track $index) {
+  <div class="row mb-3 align-items-center">
     <div class="col">
-      <div class="card shadow-sm h-100 text-center">
-        <div class="card-body">
-          <h5 class="card-title">{{ item.name }}</h5>
-          <p class="card-text">Level: {{ item.level }}</p>
-        </div>
-      </div>
+      <h2 class="fw-bold">All Courses</h2>
     </div>
-  }
+    <div class="col text-end">
+      <a routerLink="/admin/Addcourse" class="btn btn-primary" style="background-color: #4e73df; border-color: #4e73df;">
+        <i class="fas fa-plus me-1"></i> Add New Course
+      </a>
+    </div>
+  </div>
+
+  <!-- جدول الكورسات -->
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover text-center align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>Course Name</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of courses; index as i">
+          <td>{{ i + 1 }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.description || 'No description available.' }}</td>
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="deleteCourse(item.courseId)">
+              <i class="fas fa-trash-alt"></i> Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

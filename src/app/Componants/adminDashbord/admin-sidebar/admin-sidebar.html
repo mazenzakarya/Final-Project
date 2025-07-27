@@ -24,7 +24,13 @@
     { label: 'Get Courses', icon: 'fas fa-list', route: 'getcourses' }
   ]">
   </app-dropdown>
+  <!-- Dropdown subject -->
 
+  <app-dropdown (linkClicked)="hideSidebarOnMobile()" title="Subjects" icon="fas fa-book" [links]="[
+    { label: 'Add Subject', icon: 'fas fa-plus-circle', route: 'Addsubject' },
+    { label: 'Get Subjects', icon: 'fas fa-list', route: 'getsubject' }
+  ]">
+  </app-dropdown>
   <!-- Dropdown for Group -->
   <!-- <div>
     <a class="nav-link py-3 px-2 rounded d-flex justify-content-between align-items-center"
@@ -49,13 +55,7 @@
   ]">
   </app-dropdown>
 
-  <!-- Dropdown subject -->
 
-  <app-dropdown (linkClicked)="hideSidebarOnMobile()" title="Subjects" icon="fas fa-book" [links]="[
-    { label: 'Add Subject', icon: 'fas fa-plus-circle', route: 'Addsubject' },
-    { label: 'Get Subjects', icon: 'fas fa-list', route: 'getsubject' }
-  ]">
-  </app-dropdown>
   <!-- Dropdown for students -->
   <app-dropdown (linkClicked)="hideSidebarOnMobile()" title="Student" icon="fas fa-user-graduate" [links]="[
     { label: 'Add Student', icon: 'fas fa-user-plus', route: 'Addstudent' },

@@ -1,39 +1,60 @@
-<form [formGroup]="creatSubjectForm" (ngSubmit)="submitForm()" class="p-4 shadow rounded-4 bg-white w-50 mx-auto mt-4">
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card shadow-lg p-4" style="width: 100%; max-width: 500px;">
 
-  <div class="mb-3">
-    <label for="groupName" class="form-label">Group Name</label>
-    <select id="groupName" formControlName="GroupName" class="form-select">
-      <option value="">Select Group</option>
-      <option *ngFor="let group of groups" [value]="group">{{ group }}</option>
-    </select>
-    @if (f['GroupName'].touched && f['GroupName'].invalid) {
-      <div class="text-danger mt-1"><small>Group name is required.</small></div>
-    }
-  </div>
+    <!-- Header with Title and Navigation Button -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="mb-0">Create Subject</h4>
+      <a routerLink="/admin/getsubject" class="btn btn-outline-primary btn-sm">
+        View All Subjects
+      </a>
+    </div>
 
-  <div class="mb-3">
-    <label for="subjectName" class="form-label">Subject Name</label>
-    <input id="subjectName" type="text" class="form-control" formControlName="subjectName">
-    @if (f['subjectName'].touched && f['subjectName'].invalid) {
-      <div class="text-danger mt-1">
-        <small *ngIf="f['subjectName'].errors?.['required']">Subject name is required.</small>
-        <small *ngIf="f['subjectName'].errors?.['minlength']">At least 3 characters required.</small>
+    <form [formGroup]="creatSubjectForm" (ngSubmit)="submitForm()">
+
+      <!-- Subject Name -->
+      <div class="mb-3">
+        <label for="name" class="form-label">Subject Name</label>
+        <input placeholder="Enter subject name"
+          type="text"
+          id="name"
+          class="form-control"
+          formControlName="name"
+          [ngClass]="{ 'is-invalid': f.name.invalid && (f.name.dirty || f.name.touched) }"
+        />
+        <div *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)" class="invalid-feedback">
+          <div *ngIf="f.name.errors?.['required']">Name is required</div>
+          <div *ngIf="f.name.errors?.['minlength']">Name must be at least 3 characters</div>
+          <div *ngIf="f.name.errors?.['maxlength']">Name must be no more than 40 characters</div>
+        </div>
       </div>
-    }
-  </div>
 
-  <div class="mb-3">
-    <label for="grade" class="form-label">Grade</label>
-    <input id="grade" type="number" class="form-control" formControlName="grade">
-    @if (f['grade'].touched && f['grade'].invalid) {
-      <div class="text-danger mt-1">
-        <small *ngIf="f['grade'].errors?.['required']">Mark is required.</small>
-        <small *ngIf="f['grade'].errors?.['min'] || f['grade'].errors?.['max']">Mark must be between 0 and 100.</small>
+      <!-- Course Selection -->
+      <div class="mb-3">
+        <label for="courseId" class="form-label">Select Course</label>
+        <select
+          id="courseId"
+          class="form-select"
+          formControlName="courseId"
+          [ngClass]="{ 'is-invalid': f.courseId.invalid && (f.courseId.dirty || f.courseId.touched) }"
+        >
+          <option>Select a course</option>
+          <option *ngFor="let course of courses" [value]="course.courseId">
+            {{ course.name }}
+          </option>
+        </select>
+        <div *ngIf="f.courseId.invalid && (f.courseId.dirty || f.courseId.touched)" class="invalid-feedback">
+          Course is required
+        </div>
       </div>
-    }
+
+      <!-- Submit Button -->
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary" [disabled]="creatSubjectForm.invalid">
+          Save
+        </button>
+      </div>
+
+    </form>
   </div>
-
-  <button type="submit" class="btn btn-primary w-100" [disabled]="creatSubjectForm.invalid">Add Subject</button>
-</form>
-
+</div>
 

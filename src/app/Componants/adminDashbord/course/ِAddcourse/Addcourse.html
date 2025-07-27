@@ -1,5 +1,7 @@
 <div class="container d-flex justify-content-center align-items-center my-5">
+  
   <div class="card shadow p-4 w-100" style="max-width: 500px;">
+
     <h3 class="text-center mb-4">Add New Course</h3>
 
     <form [formGroup]="createCourseForm" (ngSubmit)="onSubmit()">
@@ -9,47 +11,49 @@
         <input
           id="courseName"
           type="text"
-          formControlName="courseName"
+          formControlName="name"
           class="form-control"
-          [class.is-invalid]="f.courseName.touched && f.courseName.invalid"
+          [class.is-invalid]="f.name.touched && f.name.invalid"
         />
-        @if (f.courseName.touched && f.courseName.invalid) {
+        @if (f.name.touched && f.name.invalid) {
           <div class="invalid-feedback d-block">
-            @if (f.courseName.errors?.['required']) {
+            @if (f.name.errors?.['required']) {
               Course name is required
             }
-            @if (f.courseName.errors?.['minlength']) {
+            @if (f.name.errors?.['minlength']) {
               Course name must be at least 3 characters long
             }
           </div>
         }
       </div>
 
-      <!-- Level -->
-      <div class="mb-3">
-        <label for="level" class="form-label">Level</label>
-        <select
-          id="level"
-          formControlName="level"
-          class="form-select"
-          [class.is-invalid]="f.level.touched && f.level.invalid"
-        >
-          <option value="">Select level</option>
-          <option value="Beginner">Beginner</option>
-          <option value="Intermediate">Intermediate</option>
-          <option value="Advanced">Advanced</option>
-        </select>
-        @if (f.level.touched && f.level.invalid) {
-          <div class="invalid-feedback d-block">
-            Level selection is required
-          </div>
-        }
-      </div>
+      <!-- Description -->
+<div class="mb-3">
+  <label for="description" class="form-label">Description</label>
+  <textarea
+    id="description"
+    formControlName="description"
+    class="form-control"
+    rows="3"
+    [class.is-invalid]="f.description.touched && f.description.invalid"
+  ></textarea>
+  @if (f.description.touched && f.description.invalid) {
+    <div class="invalid-feedback d-block">
+      Description is required
+    </div>
+  }
+</div>
+
+
+
 
       <!-- Submit -->
       <button type="submit" class="btn btn-primary w-100" [disabled]="createCourseForm.invalid">
         Add Course
       </button>
+
+
+      <a routerLink="/admin/getcourses" class="btn btn-link">All Courses</a>
     </form>
   </div>
 </div>
