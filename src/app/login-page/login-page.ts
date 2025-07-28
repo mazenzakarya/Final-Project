@@ -38,41 +38,51 @@ export class LoginPage {
   });
 serverMessage: string = '';
 messageType: 'success' | 'error' | '' = '';
+isLoading=false
 onSubmit() {
   if (this.loginForm.valid) {
+    this.isLoading = true; // 1. إظهار اللودر
+
     this._Authentcation.login(this.loginForm.value).subscribe({
       next: (response) => {
-        if (response && response.token && response.user) {
-          this.serverMessage = response.message || 'Login successful!';
-          this.messageType = 'success';
+        setTimeout(() => {  // 2. تأخير عرض الرسالة
+          this.isLoading = false;
 
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('role', response.user.role);
+          if (response && response.token && response.user) {
+            this.serverMessage = response.message || 'Login successful!';
+            this.messageType = 'success';
 
-          localStorage.setItem('user', JSON.stringify(response.user));
+            localStorage.setItem('token', response.token);
+            localStorage.setItem('role', response.user.role);
+            localStorage.setItem('user', JSON.stringify(response.user));
 
-          const role = response.user.role;
+            const role = response.user.role;
 
-          setTimeout(() => {
-            if (role === 'Admin') {
-              this.router.navigate(['/admin/home']);
-            } else if (role === 'Student') {
-              this.router.navigate(['/student/home']);
-            } else if (role === 'Instructor') {
-              this.router.navigate(['/instructor/homework']);
-            } else {
-              this.router.navigate(['/']);
-            }
-          }, 1500); // استنى شوية علشان تظهر الرسالة
-        } else {
-          this.serverMessage = 'Unexpected response from server.';
-          this.messageType = 'error';
-        }
+            // 3. تأخير التوجيه برضو لو حبيت
+            setTimeout(() => {
+              if (role === 'Admin') {
+                this.router.navigate(['/admin/home']);
+              } else if (role === 'Student') {
+                this.router.navigate(['/student/home']);
+              } else if (role === 'Instructor') {
+                this.router.navigate(['/instructor/homework']);
+              } else {
+                this.router.navigate(['/']);
+              }
+            }, 1000); // تأخير التوجيه بعد التوستر
+          } else {
+            this.serverMessage = 'Unexpected response from server.';
+            this.messageType = 'error';
+          }
+        }, 1000); // تأخير ظهور التوستر لمدة ثانية
       },
-     error: (error) => {
-        this.serverMessage = 'Login failed. Please try again.';
-        this.messageType = 'error';
-        console.error('Login Failed:', error);
+
+      error: (error) => {
+        setTimeout(() => {
+          this.isLoading = false;
+          this.serverMessage = 'Login failed. Please try again.';
+          this.messageType = 'error';
+        }, 1000); // تأخير ظهور رسالة الخطأ
       }
     });
   } else {
@@ -81,6 +91,7 @@ onSubmit() {
     this.messageType = 'error';
   }
 }
+
 
 
 

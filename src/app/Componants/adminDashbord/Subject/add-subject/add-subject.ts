@@ -26,16 +26,22 @@ creatSubjectForm = this._FormBuilder.group({
 name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
 courseId: [null, [Validators.required]],
 })
+isLoading=false;
   submitForm() {
     if (this.creatSubjectForm.valid) {
+      this.isLoading=true
       this._Subject.AddSubject(this.creatSubjectForm.value).subscribe({
         next: (response) => {
-          this._Toastr.success('Subject added successfully ✅'); // ✅ توستر نجاح
+          setTimeout(() => {
+          this.isLoading = false;
+          this._Toastr.success('Course added successfully!', 'Success');
           this.creatSubjectForm.reset();
+        }, 2000); // 2 ثواني
         },
         error: (error) => {
-          this._Toastr.error('Error adding subject ❌'); // ✅ توستر خطأ
-          console.error('Error adding subject', error);
+         this._Toastr.error('Error adding course', 'Error');
+        console.error('Error adding course:', error);
+        this.isLoading = false;
         }
       });
     } else {

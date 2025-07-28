@@ -3,11 +3,12 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Course } from '../../../../service/course';
 import { ToastrService } from 'ngx-toastr';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-Addcourse',
   standalone: true,
-  imports: [ ReactiveFormsModule, RouterLink ],
+  imports: [ ReactiveFormsModule, RouterLink,CommonModule ],
   templateUrl: './Addcourse.html',
   styleUrls: ['./Addcourse.css']
 })
@@ -20,23 +21,31 @@ export class AddCourse implements OnInit {
     name: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
     description: [null, [Validators.required]],
   });
+isLoading = false;
+onSubmit(): void {
+  if (this.createCourseForm.valid) {
+    this.isLoading = true;
 
-  onSubmit(): void {
-    if (this.createCourseForm.valid) {
-      this._Course.AddCourse(this.createCourseForm.value).subscribe({
-        next: (response) => {
+    this._Course.AddCourse(this.createCourseForm.value).subscribe({
+      next: () => {
+      setTimeout(() => {
+          this.isLoading = false;
           this.toastr.success('Course added successfully!', 'Success');
-          console.log('Course added successfully', response);
-        },
-        error: (error) => {
-          this.toastr.error('Error while adding course', 'Error');
-          console.error('Error adding course', error);
-        }
-      });
-    } else {
-      this.toastr.warning('Please fill in all required fields', 'Invalid Form');
-    }
+          this.createCourseForm.reset();
+        }, 2000); // 2 ثواني
+      },
+      error: (error) => {
+        this.toastr.error('Error adding course', 'Error');
+        console.error('Error adding course:', error);
+        this.isLoading = false;
+      }
+    });
+  } else {
+    this.toastr.warning('Please fill all required fields', 'Warning');
   }
+}
+
+
 
   get f() {
     return this.createCourseForm.controls;

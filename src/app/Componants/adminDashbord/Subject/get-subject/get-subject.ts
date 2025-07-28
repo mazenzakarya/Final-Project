@@ -14,6 +14,7 @@ export class GetSubject implements OnInit {
   private _Subject = inject(Subject);
   private toastr = inject(ToastrService);
   subjects: any[] = [];
+isLoading=false
   ngOnInit() {
     this.getAllSubjects();
   }
@@ -29,24 +30,32 @@ export class GetSubject implements OnInit {
       }
     });
   }
-
-  deleteSubject(id: number) {
+deleteSubject(id: number) {
   if (confirm('Are you sure you want to delete this subject?')) {
+    this.isLoading = true;
+
     this._Subject.deleteSubject(id).subscribe({
       next: () => {
         const index = this.subjects.findIndex(s => s.courseSubjectId === id);
         if (index !== -1) {
           this.subjects.splice(index, 1);
         }
-        this.toastr.success('Subject deleted successfully');
+
+        // لودينج 2 ثانية ثم التوستر
+        setTimeout(() => {
+          this.toastr.success('Subject deleted successfully ✅', 'Success');
+          this.isLoading = false;
+        }, 2000);
       },
       error: (err) => {
         console.error('Error deleting subject:', err);
-        this.toastr.error('Failed to delete subject');
+        this.toastr.error('Failed to delete subject ❌', 'Error');
+        this.isLoading = false;
       }
     });
   }
 }
+
 
 
 }

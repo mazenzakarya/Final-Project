@@ -11,6 +11,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './getcourses.css'
 })
 export class Getcourses implements OnInit {
+
+  isLoading: boolean = false;
   courses:any = [];
   private _Course = inject(Course);
   private _toastr = inject(ToastrService);
@@ -27,24 +29,34 @@ export class Getcourses implements OnInit {
     });
   }
 
-
 deleteCourse(Id: number) {
   if (confirm("Are you sure you want to delete this course?")) {
+    this.isLoading = true;
+
     this._Course.deleteCourse(Id).subscribe({
       next: () => {
         const index = this.courses.findIndex((course: any) => course.courseId === Id);
         if (index !== -1) {
-          this.courses.splice(index, 1); // Remove the item from the array
+          this.courses.splice(index, 1);
         }
-        this._toastr.success('Course deleted successfully ✅', 'Success');
+
+        // ❗ تأخير التوستر 2 ثانية
+        setTimeout(() => {
+          this._toastr.success('Course deleted successfully ✅', 'Success');
+          this.isLoading = false;
+        }, 2000);
       },
       error: (err) => {
-        this._toastr.error('An error occurred while deleting the course ❌', 'Error');
+        setTimeout(() => {
+          this._toastr.error('An error occurred while deleting the course ❌', 'Error');
+          this.isLoading = false;
+        }, 2000);
         console.error('Error deleting course:', err);
       }
     });
   }
 }
+
 
 
 }
