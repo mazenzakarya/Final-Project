@@ -18,7 +18,7 @@ export class AddCourse implements OnInit {
   private toastr = inject(ToastrService);
 
   createCourseForm = this._FormBuilder.group({
-    name: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
+    name: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
     description: [null, [Validators.required]],
   });
 isLoading = false;
@@ -32,7 +32,7 @@ onSubmit(): void {
           this.isLoading = false;
           this.toastr.success('Course added successfully!', 'Success');
           this.createCourseForm.reset();
-        }, 2000); // 2 ثواني
+        }, 1000); // 2 ثواني
       },
       error: (error) => {
         this.toastr.error('Error adding course', 'Error');

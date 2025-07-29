@@ -37,9 +37,9 @@ deleteInstructor(id: number) {
          console.log('✅ Instructor Deleted:', res);
       setTimeout(() => {
         this._ToastrService.success('Instructor deleted successfully.', 'Success');
-        this.getAllInstructors(); // تحديث القائمة بعد الحذف
+        this.getAllInstructors();
         this.isLoading = false;
-      }, 1000); // تأخير ثانية واحدة (1000 ملي ثانية)
+      }, 1000); 
     },
     error: (err: any) => {
       setTimeout(() => {

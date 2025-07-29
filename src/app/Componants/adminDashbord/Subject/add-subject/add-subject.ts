@@ -36,7 +36,7 @@ isLoading=false;
           this.isLoading = false;
           this._Toastr.success('Course added successfully!', 'Success');
           this.creatSubjectForm.reset();
-        }, 2000); // 2 ثواني
+        }, 1000); // 2 ثواني
         },
         error: (error) => {
          this._Toastr.error('Error adding course', 'Error');

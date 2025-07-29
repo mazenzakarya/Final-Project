@@ -1,24 +1,56 @@
-<div class="container mt-4">
-  <h3 class="mb-4 text-center">All Homeworks</h3>
 
-  <table class="table table-striped table-bordered shadow-sm">
-    <thead class="table-primary text-center">
+
+<div *ngIf="isLoading" class="fullscreen-loader">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div class="container mt-4">
+
+
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>All Homeworks</h2>
+  <a routerLink="/admin/Addhomework" class="btn btn-outline-primary">
+    Add Homework
+  </a>
+</div>
+  <table *ngIf="gatAllhomeWork.length > 0" class="table table-striped table-bordered">
+    <thead class="table-primary">
       <tr>
-        <th>Group</th>
+        <th>#</th>
+        <th>Course</th>
         <th>Subject</th>
+        <th>Group</th>
         <th>Description</th>
+        <th>Date</th>
         <th>Due Date</th>
-        <th>Set By</th>
+        <th>Total Marks</th>
+        <th>Actions</th>
       </tr>
     </thead>
-    <tbody class="text-center">
-      <tr *ngFor="let hw of homeworks">
-        <td>{{ hw.groupName }}</td>
+    <tbody>
+      <tr *ngFor="let hw of gatAllhomeWork; index as i">
+        <td>{{ i + 1 }}</td>
+        <td>{{ hw.courseName }}</td>
         <td>{{ hw.subjectName }}</td>
+        <td>{{ hw.groupName }}</td>
         <td>{{ hw.description }}</td>
-        <td>{{ hw.dueDate }}</td>
-        <td>{{ hw.setBy }}</td>
+        <td>{{ hw.date | date:'shortDate' }}</td>
+        <td>{{ hw.dueDate | date:'shortDate' }}</td>
+        <td>{{ hw.totalMarks }}</td>
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="deleteHomeWork(hw.courseSubjectElementsId)">
+            Delete
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
+
+  <div *ngIf="gatAllhomeWork.length === 0 && !isLoading" class="alert alert-info text-center">
+    No homework found.
+  </div>
 </div>
+

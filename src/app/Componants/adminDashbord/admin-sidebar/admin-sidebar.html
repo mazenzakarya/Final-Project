@@ -67,7 +67,14 @@
   ]">
   </app-dropdown>
 
-
+<app-dropdown (linkClicked)="hideSidebarOnMobile()"
+  title="Homework"
+  icon="fas fa-book"
+  [links]="[
+    { label: 'Add Homework', route: 'Addhomework', icon: 'fas fa-plus-circle' },
+    { label: 'Get Homework', route: 'gethomework', icon: 'fas fa-list-ul' }
+  ]">
+</app-dropdown>
 
   <!-- Dropdown for accounts -->
   <app-dropdown (linkClicked)="hideSidebarOnMobile()" title="Fees" icon="fas fa-file-invoice-dollar" [links]="[
@@ -89,13 +96,6 @@
   ]">
 </app-dropdown>
   <!-- Dropdown for Homework -->
-<app-dropdown (linkClicked)="hideSidebarOnMobile()"
-  title="Homework"
-  icon="fas fa-book"
-  [links]="[
-    { label: 'Add Homework', route: 'Addhomework', icon: 'fas fa-plus-circle' },
-    { label: 'Get Homework', route: 'gethomework', icon: 'fas fa-list-ul' }
-  ]">
-</app-dropdown>
+
 
 </nav>

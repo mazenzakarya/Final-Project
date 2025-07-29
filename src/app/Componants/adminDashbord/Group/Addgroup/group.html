@@ -1,53 +1,105 @@
-<form [formGroup]="groupForm" (ngSubmit)="onSubmit()" class="p-4 shadow rounded-4 bg-white mx-auto" style="max-width: 600px;">
-  <h4 class="mb-4 text-center">Add Group</h4>
+<div *ngIf="isLoading" class="fullscreen-loader">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
 
-  <div class="mb-3">
-    <label for="groupName" class="form-label">Group Name</label>
-    <input type="text" id="groupName" formControlName="groupName" class="form-control" />
-    @if(f['groupName'].touched && f['groupName'].invalid) {
-      <div class="text-danger mt-1">
-        <small *ngIf="f['groupName'].errors?.['required']">Group name is required.</small>
-        <small *ngIf="f['groupName'].errors?.['minlength']">Minimum 3 characters required.</small>
+<div class="container mt-3">
+  <div class="card shadow p-4">
+    <div class="text-center mb-4">
+      <i class="fas fa-layer-group fa-3x text-primary"></i>
+      <h4 class="mt-2">Add New Group</h4>
+    </div>
+
+    <form [formGroup]="groupForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <!-- Group Name -->
+        <div class="col-md-6 mb-3">
+          <label>Group Name</label>
+          <input class="form-control" formControlName="name" />
+          <div class="text-danger" *ngIf="f['name'].touched && f['name'].invalid">
+            <small *ngIf="f['name'].errors?.['required']">Group name is required.</small>
+            <small *ngIf="f['name'].errors?.['minlength']">Minimum 4 characters required.</small>
+          </div>
+        </div>
+
+        <!-- Course -->
+        <div class="col-md-6 mb-3">
+          <label>Course</label>
+          <select class="form-control" formControlName="courseId" >
+            <option value="">Select Course</option>
+            <option *ngFor="let course of courses" [value]="course.courseId">{{ course.name }}</option>
+          </select>
+          <div class="text-danger" *ngIf="f['courseId'].touched && f['courseId'].invalid">
+            Course is required.
+          </div>
+        </div>
+
+        <!-- Level Description (ReadOnly) -->
+        <div class="col-md-6 mb-3">
+          <label>Level Description</label>
+          <input class="form-control" formControlName="levelDescription" readonly />
+          <div class="text-danger" *ngIf="f['levelDescription'].touched && f['levelDescription'].invalid">
+            Level description is required.
+          </div>
+        </div>
+
+        <!-- Instructor -->
+        <div class="col-md-6 mb-3">
+          <label>Instructor</label>
+          <select class="form-control" formControlName="teacherId">
+            <option value="">Select Instructor</option>
+            <option *ngFor="let teacher of instructors" [value]="teacher.userId">{{ teacher.name }}</option>
+          </select>
+          <div class="text-danger" *ngIf="f['teacherId'].touched && f['teacherId'].invalid">
+            Instructor is required.
+          </div>
+        </div>
+
+        <!-- Amount -->
+        <div class="col-md-6 mb-3">
+          <label>Amount</label>
+          <input type="number" class="form-control" formControlName="amount" />
+          <div class="text-danger" *ngIf="f['amount'].touched && f['amount'].invalid">
+            <small *ngIf="f['amount'].errors?.['required']">Amount is required.</small>
+            <small *ngIf="f['amount'].errors?.['min']">Amount must be greater than 0.</small>
+          </div>
+        </div>
+
+        <!-- Dates -->
+        <div class="col-md-6 mb-3">
+          <label>Start Date</label>
+          <input type="date" class="form-control" formControlName="levelStartDate" />
+          <div class="text-danger" *ngIf="f['levelStartDate'].touched && f['levelStartDate'].invalid">
+            Start date is required.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label>End Date</label>
+          <input type="date" class="form-control" formControlName="levelEndDate" />
+          <div class="text-danger" *ngIf="f['levelEndDate'].touched && f['levelEndDate'].invalid">
+            End date is required.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label>Next Payment Date</label>
+          <input type="date" class="form-control" formControlName="nextPaymentDate" />
+          <div class="text-danger" *ngIf="f['nextPaymentDate'].touched && f['nextPaymentDate'].invalid">
+            Next payment date is required.
+          </div>
+        </div>
       </div>
-    }
-  </div>
 
-  <div class="mb-3">
-    <label for="courseName" class="form-label">Course Name</label>
-    <input type="text" id="courseName" formControlName="courseName" class="form-control" />
-    @if(f['courseName'].touched && f['courseName'].invalid) {
-      <div class="text-danger mt-1">
-        <small>Course name is required.</small>
+      <div class="d-flex justify-content-center gap-3 mt-4">
+        <button type="submit" class="btn btn-primary" [disabled]="groupForm.invalid">
+          <i class="fas fa-save me-1"></i> Save Group
+        </button>
+        <a routerLink="/admin/getgroup" class="btn btn-outline-secondary">
+          <i class="fas fa-list me-1"></i> All Groups
+        </a>
       </div>
-    }
+    </form>
   </div>
-
-  <div class="mb-3">
-    <label for="instructorName" class="form-label">Instructor Name</label>
-    <input type="text" id="instructorName" formControlName="instructorName" class="form-control" />
-    @if(f['instructorName'].touched && f['instructorName'].invalid) {
-      <div class="text-danger mt-1">
-        <small>Instructor name is required.</small>
-      </div>
-    }
-  </div>
-
-  <div class="mb-3">
-    <label for="level" class="form-label">Level</label>
-    <select id="level" formControlName="level" class="form-select">
-      <option value="">Select Level</option>
-      <option value="Beginner">Beginner</option>
-      <option value="Intermediate">Intermediate</option>
-      <option value="Advanced">Advanced</option>
-    </select>
-    @if(f['level'].touched && f['level'].invalid) {
-      <div class="text-danger mt-1">
-        <small>Level is required.</small>
-      </div>
-    }
-  </div>
-
-  <div class="text-center">
-    <button type="submit" class="btn btn-primary px-4" [disabled]="groupForm.invalid">Add Group</button>
-  </div>
-</form>
+</div>

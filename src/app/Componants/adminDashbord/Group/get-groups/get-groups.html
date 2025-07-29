@@ -1,20 +1,50 @@
-<div class="container mt-4">
-  <h2 class="text-center mb-4">All Groups</h2>
-  <div class="row">
-    <div class="col-md-4 mb-4" *ngFor="let group of groups">
-      <div class="card h-100 shadow-sm border-0">
+
+
+<div *ngIf="isLoading" class="fullscreen-loader">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary mb-0">
+      <i class="bi bi-collection me-2"></i> All Groups
+    </h2>
+    <button routerLink="/admin/Addgroup" class="btn btn-outline-primary">
+      <i class="bi bi-plus-circle me-1"></i> Add Group
+    </button>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4 mb-4" *ngFor="let group of AllGroup">
+      <div class="card h-100 shadow-sm border-0 text-center">
         <div class="card-body">
-          <h5 class="card-title text-primary">{{ group.groupName }}</h5>
-          <p class="card-text"><strong>Course:</strong> {{ group.courseName }}</p>
-          <p class="card-text"><strong>Instructor:</strong> {{ group.instructorName }}</p>
-          <p class="card-text"><strong>Level:</strong> {{ group.level }}</p>
+          <h5 class="card-title text-primary mb-3 fs-5">
+            <i class="bi bi-people-fill me-1"></i> {{ group.name }}
+          </h5>
+          <p class="card-text mb-1 text-muted small">
+            <strong>Course:</strong> {{ group.courseName }}
+          </p>
+          <p class="card-text mb-1 text-muted small">
+            <strong>Instructor:</strong> {{ group.teacherName }}
+          </p>
+          <p class="card-text mb-0 text-muted small">
+            <strong>Level:</strong> {{ group.levelDescription }}
+          </p>
         </div>
-        <div class="card-footer bg-white border-0 text-end">
-          <button class="btn btn-outline-danger btn-sm" >
-            Delete
+        <div class="card-footer bg-white border-0 text-center">
+          <button class="btn btn-outline-danger btn-sm" (click)="deleteGroup(group.groupsId)">
+            <i class="bi bi-trash3-fill me-1"></i> Delete
           </button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div *ngIf="AllGroup?.length === 0" class="text-center mt-5">
+    <div class="alert alert-warning">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i> No groups available.
     </div>
   </div>
 </div>
