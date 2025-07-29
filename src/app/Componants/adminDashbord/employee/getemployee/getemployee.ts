@@ -1,6 +1,8 @@
+import { Employees } from './../../../../service/employees';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-getemployee',
@@ -8,40 +10,52 @@ import { RouterLink } from '@angular/router';
   templateUrl: './getemployee.html',
   styleUrl: './getemployee.css'
 })
-export class Getemployee {
-  employees = [
-  {
-    username: 'admin001',
-    name: 'Ahmed Ali',
-    role: 'Admin',
-    dob: '1990-01-01',
-    email: 'admin@example.com',
-    salary: 12000,
-    gender: 'Male',
-    address: 'Cairo, Egypt',
-    image: 'https://i.pravatar.cc/100?img=1'
-  },
-  {
-    username: 'secretary01',
-    name: 'Sara Youssef',
-    role: 'Secretary',
-    dob: '1995-05-20',
-    email: 'sara@example.com',
-    salary: 8000,
-    gender: 'Female',
-    address: 'Giza, Egypt',
-    image: 'https://i.pravatar.cc/100?img=2'
-  },
-  {
-    username: 'manager02',
-    name: 'Mohamed Tarek',
-    role: 'Manager',
-    dob: '1987-11-15',
-    email: 'mohamed@example.com',
-    salary: 15000,
-    gender: 'Male',
-    address: 'Alexandria, Egypt',
-    image: 'https://i.pravatar.cc/100?img=3'
+export class Getemployee implements OnInit {
+  isLoading: boolean = false;
+ private readonly _Employees=inject(Employees)
+ private readonly _ToastrService=inject(ToastrService)
+
+  instructors: any[] = [];
+
+
+  getAllInstructors() {
+    this._Employees.getAllInstructor().subscribe({
+      next: (res) => {
+        this.instructors = res;
+      },
+      error: (err) => {
+        this._ToastrService.error('Failed to load instructors');
+      }
+    });
   }
-];
+
+deleteInstructor(id: number) {
+  this.isLoading = true;
+
+  this._Employees.deleteInstructor(id).subscribe({
+    next: (res: any) => {
+         console.log('✅ Instructor Deleted:', res);
+      setTimeout(() => {
+        this._ToastrService.success('Instructor deleted successfully.', 'Success');
+        this.getAllInstructors(); // تحديث القائمة بعد الحذف
+        this.isLoading = false;
+      }, 1000); // تأخير ثانية واحدة (1000 ملي ثانية)
+    },
+    error: (err: any) => {
+      setTimeout(() => {
+          console.error('❌ Error Occurred:', err);
+        this._ToastrService.error('An error occurred while deleting the instructor.', 'Error');
+        this.isLoading = false;
+      }, 1000);
+    }
+  });
 }
+
+ ngOnInit(): void {
+    this.getAllInstructors();
+  }
+
+
+}
+
+

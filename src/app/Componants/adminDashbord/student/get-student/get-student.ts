@@ -1,6 +1,8 @@
+import { Student } from './../../../../service/student';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-get-student',
@@ -8,34 +10,48 @@ import { RouterLink } from '@angular/router';
   templateUrl: './get-student.html',
   styleUrl: './get-student.css'
 })
-export class GetStudent {
-students = [
-    {
-      username: 'ahmed123',
-      name: 'Ahmed Ali',
-      role: 'Student',
-      gender: 'Male',
-      dob: '2005-04-12',
-      parentPhone: '01012345678',
-      nationalId: '30105230123456',
+export class GetStudent implements OnInit {
+  private readonly _Student = inject(Student);
+  private readonly _ToastrService = inject(ToastrService);
+
+  students: any[] = [];
+  isLoading: boolean = false;
+
+
+  getStudent() {
+    this._Student.getAllStudent().subscribe({
+      next: (res) => {
+        this.students = res;
+        console.log(res);
+      },
+      error: (err) => {
+        console.error( err);
+      }
+    });
+  }
+
+
+deleteStudentById(id: number) {
+  this.isLoading = true;
+
+  this._Student.deleteStudent(id).subscribe({
+    next: res => {
+      setTimeout(() => {
+        this._ToastrService.success( 'Student deleted successfully.', 'Success');
+        this.getStudent(); // تحديث القائمة
+        this.isLoading = false;
+      }, 1000); // تأخير ثانية واحدة (1000 ملي ثانية)
     },
-    {
-      username: 'sara567',
-      name: 'Sara Mahmoud',
-      role: 'Student',
-      gender: 'Female',
-      dob: '2006-09-25',
-      parentPhone: '01098765432',
-      nationalId: '30209250123456',
-    },
-    {
-      username: 'mohamed789',
-      name: 'Mohamed Mostafa',
-      role: 'Student',
-      gender: 'Male',
-      dob: '2004-01-10',
-      parentPhone: '01123456789',
-      nationalId: '30001100123456',
+    error: err => {
+      setTimeout(() => {
+        this._ToastrService.error('An error occurred while deleting the student.', 'Error');
+        this.isLoading = false;
+      }, 1000);
     }
-  ];
+  });
+}
+
+  ngOnInit(): void {
+    this.getStudent();
+  }
 }

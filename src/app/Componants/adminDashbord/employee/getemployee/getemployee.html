@@ -1,9 +1,17 @@
-<div class="container mt-5">
+<!-- Loader -->
+<div *ngIf="isLoading" class="fullscreen-loader text-center py-5">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="container mt-5" *ngIf="!isLoading">
   <div class="card shadow p-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <h4 class="mb-0"><i class="fas fa-users text-primary me-2"></i>employee List</h4>
+      <h4 class="mb-0"><i class="fas fa-chalkboard-teacher text-primary me-2"></i>Instructor List</h4>
       <button routerLink="/admin/Addemployee" class="btn btn-outline-primary btn-sm">
-        <i class="fas fa-plus me-1"></i> Add Employee
+        <i class="fas fa-plus me-1"></i> Add Instructor
       </button>
     </div>
 
@@ -11,32 +19,41 @@
       <thead class="table-primary">
         <tr>
           <th>#</th>
-          <th>Username</th>
           <th>Name</th>
-          <th>Role</th>
-          <th>Gender</th>
-          <th>DOB</th>
-          <th>Salary</th>
+          <th>Username</th>
           <th>Email</th>
+          <th>Role</th>
+          <th>Phone</th>
+          <th>Salary</th>
+          <th>Gender</th>
+          <th>Address</th>
+          <th>Date of Birth</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let employee of employees; let i = index">
+        <tr *ngFor="let instructor of instructors; let i = index">
           <td>{{ i + 1 }}</td>
-          <td>{{ employee.username }}</td>
-          <td>{{ employee.name }}</td>
-          <td>{{ employee.role }}</td>
-          <td>{{ employee.gender }}</td>
-          <td>{{ employee.dob }}</td>
-          <td>{{ employee.salary }}</td>
-          <td>{{ employee.email }}</td>
-    
+          <td>{{ instructor.name }}</td>
+          <td>{{ instructor.username }}</td>
+          <td>{{ instructor.email }}</td>
+          <td>{{ instructor.role }}</td>
+          <td>{{ instructor.phoneNumber }}</td>
+          <td>{{ instructor.salary }} EGP</td>
+          <td>{{ instructor.gender }}</td>
+          <td>{{ instructor.address }}</td>
+          <td>{{ instructor.dob | date: 'yyyy-MM-dd' }}</td>
+          <td>
+            <button class="btn btn-sm btn-danger" (click)="deleteInstructor(instructor.userId)">
+              <i class="fas fa-trash-alt me-1"></i> Delete
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
 
-    <div *ngIf="employees.length === 0" class="text-center text-muted">
-      No students to show.
+    <div *ngIf="instructors.length === 0" class="text-center text-muted">
+      No instructors to show.
     </div>
   </div>
 </div>

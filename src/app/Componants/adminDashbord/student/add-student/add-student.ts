@@ -1,46 +1,36 @@
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Student } from '../../../../service/student';
+import { ToastrService } from 'ngx-toastr';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-add-student',
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './add-student.html',
   styleUrl: './add-student.css'
 })
 export class AddStudent {
+
+  isLoading = false; // ✅ متغير اللودر
+
+  private readonly _Student = inject(Student)
+  private readonly _ToastrService = inject(ToastrService)
   private readonly _FormBuilder = inject(FormBuilder);
+
   Studentform = this._FormBuilder.group({
-username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      role: ['', Validators.required],
-      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
-      dob: ['', Validators.required],
-      gender: ['', Validators.required],
-      image: [''],
-      fatherName: [''],
-      motherName: [''],
-      parentPhone: ['', [Validators.pattern(/^01[0125][0-9]{8}$/)]],
-      nationalId: ['', [Validators.pattern(/^[0-9]{14}$/)]],
-      address: [''],
+    gender: [null, Validators.required],
+    name: [null, Validators.required],
+    phoneNumber: [null, [Validators.pattern(/^01[0125][0-9]{8}$/)]],
+    username: [null, Validators.required],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    dob: [null, Validators.required],
+    address: [null, Validators.required],
+    fatherName: [null, Validators.required],
+    motherName: [null, Validators.required],
+    parentPhoneNumber: ['', [Validators.pattern(/^01[0125][0-9]{8}$/)]],
   });
-
-
-  isInvalid(control: string): boolean {
-    const field = this.Studentform.get(control);
-    return field?.touched && field?.invalid || false;
-  }
-
-  getError(control: string): string {
-    const field = this.Studentform.get(control);
-    if (!field || !field.errors) return '';
-
-    if (field.errors['required']) return 'This field is required';
-    if (field.errors['minlength']) return `Minimum ${field.errors['minlength'].requiredLength} characters`;
-    if (field.errors['pattern']) return 'Invalid format';
-
-    return '';
-  }
 
   onSubmit() {
     if (this.Studentform.invalid) {
@@ -48,10 +38,24 @@ username: ['', Validators.required],
       return;
     }
 
-    console.log(this.Studentform.value);
+    this.isLoading = true; // ✅ شغل اللودر
+
+    this._Student.AddStudent(this.Studentform.value).subscribe({
+      next: (res) => {
+        setTimeout(() => {
+          this.isLoading = false;
+          this._ToastrService.success(res.message, 'Done');
+        }, 1000);
+
+        this.Studentform.reset();
+      },
+      error: (err) => {
+        setTimeout(() => {
+          this.isLoading = false;
+          this._ToastrService.error('An error occurred during submission', 'Error');
+        }, 1000);
+      }
+    });
   }
 
-
 }
-
-

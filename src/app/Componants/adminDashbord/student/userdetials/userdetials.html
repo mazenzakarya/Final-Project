@@ -1,1 +1,46 @@
-<p>userdetials works!</p>
+<div *ngIf="students.length > 0" class="container mt-5">
+  <div class="card shadow p-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="mb-0 text-primary fw-bold">
+        <i class="bi bi-people-fill me-2"></i>   Student Details
+      </h4>
+
+      <button routerLink="/admin/Addstudent" class="btn btn-outline-primary btn-sm">
+        <i class="bi bi-plus-circle me-1"></i> Add Student
+      </button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-hover text-center align-middle">
+        <thead class="table-primary">
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Gender</th>
+            <th>Phone</th>
+            <th>DOB</th>
+            <th>Address</th>
+            <th>Father</th>
+            <th>Mother</th>
+            <th>Parent Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of students; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.username }}</td>
+            <td>{{ student.gender }}</td>
+            <td>{{ student.phoneNumber }}</td>
+            <td>{{ student.dob | date: 'yyyy-MM-dd' }}</td>
+            <td>{{ student.address }}</td>
+            <td>{{ student.parent?.fatherName }}</td>
+            <td>{{ student.parent?.motherName }}</td>
+            <td>{{ student.parent?.phoneNumber }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

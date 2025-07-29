@@ -1,45 +1,35 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { Employees } from '../../../../service/employees';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-addemployee',
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule,RouterLink],
   templateUrl: './addemployee.html',
   styleUrl: './addemployee.css'
 })
 export class Addemployee {
   private readonly _FormBuilder = inject(FormBuilder);
+  private readonly _ToastrService = inject(ToastrService);
+  private readonly _Employees = inject(Employees);
+  isLoading = false;
   addEmployeeForm = this._FormBuilder.group({
-    username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      role: ['', Validators.required],
-      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
-      dob: [''],
-      gender: ['', Validators.required],
-      image: [''],
-      email: ['', [Validators.email]],
-      salary: ['', [Validators.required, Validators.min(0)]],
-      address: [''],
+    role: ['', Validators.required],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    name: ['', Validators.required],
+    phoneNumber: ['', [
+      Validators.required,
+      Validators.pattern(/^01[0-9]{9}$/)
+    ]], email: ['', [Validators.email]],
+    salary: ['', [Validators.required, Validators.min(0)]],
+    gender: ['', Validators.required],
+    dob: [null, Validators.required],
+    address: [null, Validators.required],
   });
 
-    isInvalid(control: string): boolean {
-    const field = this.addEmployeeForm.get(control);
-    return field?.touched && field?.invalid || false;
-  }
-
-  getError(control: string): string {
-    const field = this.addEmployeeForm.get(control);
-    if (!field || !field.errors) return '';
-
-    if (field.errors['required']) return 'This field is required';
-    if (field.errors['minlength']) return `Minimum ${field.errors['minlength'].requiredLength} characters`;
-    if (field.errors['pattern']) return 'Invalid format';
-    if (field.errors['email']) return 'Invalid email format';
-    if (field.errors['min']) return 'Salary must be positive';
-    
-    return '';
-  }
 
   onSubmit() {
     if (this.addEmployeeForm.invalid) {
@@ -47,11 +37,28 @@ export class Addemployee {
       return;
     }
 
-    console.log(this.addEmployeeForm.value);
+    this.isLoading = true;
+
+    this._Employees.AddEmployee(this.addEmployeeForm.value).subscribe({
+      next: (res) => {
+        console.log(res);
+
+        setTimeout(() => {
+          this.isLoading = false;
+          this._ToastrService.success('Employee added successfully');
+          this.addEmployeeForm.reset();
+        }, 1000);
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this._ToastrService.error('Failed to add the employee')
+      }
+    });
   }
-
-
-
-
-
 }
+
+
+
+
+
+

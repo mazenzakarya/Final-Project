@@ -1,5 +1,11 @@
-<!-- نفس الكارد والأيقونة -->
-<div class="container ">
+
+<div *ngIf="isLoading" class="fullscreen-loader">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div class="container">
   <div class="card shadow p-4">
     <div class="text-center mb-4">
       <i class="fas fa-user-graduate fa-3x text-primary"></i>
@@ -8,45 +14,115 @@
 
     <form [formGroup]="Studentform" (ngSubmit)="onSubmit()">
       <div class="row">
-        <div class="col-md-4 mb-3" *ngFor="let field of [
-          {label:'Username', name:'username'},
-          {label:'Password', name:'password', type:'password'},
-          {label:'Role', name:'role'},
-          {label:'Name', name:'name'},
-          {label:'Date of Birth', name:'dob', type:'date'},
-          {label:'Gender', name:'gender', isSelect: true},
-          {label:'Image', name:'image', type:'file'},
-          {label:'National ID', name:'nationalId'},
-          {label:'Father Name', name:'fatherName'},
-          {label:'Mother Name', name:'motherName'},
-          {label:'Parent Phone', name:'parentPhone'},
-          {label:'Address', name:'address', isTextarea: true},
-        ]; let i = index">
-          <label>{{field.label}}</label>
+        <!-- Name -->
+        <div class="col-md-4 mb-3">
+          <label>Name</label>
+          <input class="form-control" formControlName="name" />
+          <div class="text-danger" *ngIf="Studentform.get('name')?.invalid && Studentform.get('name')?.touched">
+            Name is required
+          </div>
+        </div>
 
-          <!-- Select -->
-          <select *ngIf="field.isSelect" class="form-control" [formControlName]="field.name">
+        <!-- Username -->
+        <div class="col-md-4 mb-3">
+          <label>Username</label>
+          <input class="form-control" formControlName="username" />
+          <div class="text-danger" *ngIf="Studentform.get('username')?.invalid && Studentform.get('username')?.touched">
+            Username is required
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="col-md-4 mb-3">
+          <label>Password</label>
+          <input type="password" class="form-control" formControlName="password" />
+          <div class="text-danger" *ngIf="Studentform.get('password')?.touched && Studentform.get('password')?.invalid">
+            <div *ngIf="Studentform.get('password')?.errors?.['required']">Password is required</div>
+            <div *ngIf="Studentform.get('password')?.errors?.['minlength']">
+              Minimum 6 characters
+            </div>
+          </div>
+        </div>
+
+        <!-- DOB -->
+        <div class="col-md-4 mb-3">
+          <label>Date of Birth</label>
+          <input type="date" class="form-control" formControlName="dob" />
+          <div class="text-danger" *ngIf="Studentform.get('dob')?.invalid && Studentform.get('dob')?.touched">
+            Date of Birth is required
+          </div>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="col-md-4 mb-3">
+          <label>Phone Number</label>
+          <input class="form-control" formControlName="phoneNumber" />
+          <div class="text-danger" *ngIf="Studentform.get('phoneNumber')?.touched && Studentform.get('phoneNumber')?.invalid">
+            <div *ngIf="Studentform.get('phoneNumber')?.errors?.['required']">Phone is required</div>
+            <div *ngIf="Studentform.get('phoneNumber')?.errors?.['pattern']">Invalid Egyptian phone number</div>
+          </div>
+        </div>
+
+        <!-- Gender -->
+        <div class="col-md-4 mb-3">
+          <label>Gender</label>
+          <select class="form-control" formControlName="gender">
             <option value="">Select</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
           </select>
+          <div class="text-danger" *ngIf="Studentform.get('gender')?.invalid && Studentform.get('gender')?.touched">
+            Gender is required
+          </div>
+        </div>
 
-          <!-- Textarea -->
-          <textarea *ngIf="field.isTextarea" rows="2" class="form-control" [formControlName]="field.name"></textarea>
+        <!-- Father Name -->
+        <div class="col-md-4 mb-3">
+          <label>Father Name</label>
+          <input class="form-control" formControlName="fatherName" />
+          <div class="text-danger" *ngIf="Studentform.get('fatherName')?.invalid && Studentform.get('fatherName')?.touched">
+            Father Name is required
+          </div>
+        </div>
 
-          <!-- Input -->
-          <input *ngIf="!field.isSelect && !field.isTextarea" [type]="field.type || 'text'" class="form-control"
-                 [formControlName]="field.name" />
+        <!-- Mother Name -->
+        <div class="col-md-4 mb-3">
+          <label>Mother Name</label>
+          <input class="form-control" formControlName="motherName" />
+          <div class="text-danger" *ngIf="Studentform.get('motherName')?.invalid && Studentform.get('motherName')?.touched">
+            Mother Name is required
+          </div>
+        </div>
 
-          <!-- Error -->
-          <div class="text-danger" *ngIf="isInvalid(field.name)">
-            {{ getError(field.name) }}
+        <!-- Parent Phone -->
+        <div class="col-md-4 mb-3">
+          <label>Parent Phone</label>
+          <input class="form-control" formControlName="parentPhoneNumber" />
+          <div class="text-danger" *ngIf="Studentform.get('parentPhone')?.touched && Studentform.get('parentPhoneNumber')?.invalid">
+            <div *ngIf="Studentform.get('parentPhoneNumber')?.errors?.['required']">Parent Phone is required</div>
+            <div *ngIf="Studentform.get('parentPhoneNumber')?.errors?.['pattern']">Invalid phone number</div>
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="col-md-4 mb-3">
+          <label>Address</label>
+          <textarea rows="2" class="form-control" formControlName="address"></textarea>
+          <div class="text-danger" *ngIf="Studentform.get('address')?.invalid && Studentform.get('address')?.touched">
+            Address is required
           </div>
         </div>
       </div>
 
-      <button class="btn btn-primary w-25 m-auto d-block" type="submit">Submit</button>
+<div class="d-flex justify-content-center gap-3 mt-4">
+  <button type="submit" class="btn btn-primary">
+    <i class="fas fa-save me-1"></i> Submit
+  </button>
+
+  <a routerLink="/admin/getstudent" class="btn btn-outline-secondary">
+    <i class="fas fa-list me-1"></i> All Students
+  </a>
+</div>
     </form>
   </div>
 </div>
-

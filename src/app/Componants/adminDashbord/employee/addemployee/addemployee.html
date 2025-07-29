@@ -1,46 +1,81 @@
-<div class="container ">
+
+<div *ngIf="isLoading" class="fullscreen-loader">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+
+<div class="container mt-3">
   <div class="card shadow p-4">
     <div class="text-center mb-4">
-      <i class="fas fa-user-tie fa-3x text-success"></i>
+      <i class="fas fa-user-tie fa-3x text-primary"></i>
       <h4 class="mt-2">Add Employee</h4>
     </div>
 
     <form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
       <div class="row">
+        <!-- Name -->
         <div class="col-md-4 mb-3">
-          <label>Username</label>
-          <input class="form-control" formControlName="username" />
-          <div class="text-danger" *ngIf="isInvalid('username')">{{ getError('username') }}</div>
+          <label>Full Name</label>
+          <input class="form-control" formControlName="name" />
+          <div class="text-danger" *ngIf="addEmployeeForm.get('name')?.invalid && addEmployeeForm.get('name')?.touched">
+            Name is required
+          </div>
         </div>
 
-        <div class="col-md-4 mb-3">
-          <label>Password</label>
-          <input type="password" class="form-control" formControlName="password" />
-          <div class="text-danger" *ngIf="isInvalid('password')">{{ getError('password') }}</div>
-        </div>
-
+        <!-- Role -->
         <div class="col-md-4 mb-3">
           <label>Role</label>
           <select class="form-control" formControlName="role">
             <option value="">Select Role</option>
-            <option value="Admin">Admin</option>
-            <option value="Manager">Manager</option>
+            <option value="Instructor">Instructor</option>
             <option value="Secretary">Secretary</option>
+            <option value="Manager">Manager</option>
           </select>
-          <div class="text-danger" *ngIf="isInvalid('role')">{{ getError('role') }}</div>
+          <div class="text-danger" *ngIf="addEmployeeForm.get('role')?.invalid && addEmployeeForm.get('role')?.touched">
+            Role is required
+          </div>
         </div>
 
+        <!-- Phone -->
         <div class="col-md-4 mb-3">
-          <label>Name</label>
-          <input class="form-control" formControlName="name" />
-          <div class="text-danger" *ngIf="isInvalid('name')">{{ getError('name') }}</div>
+          <label>Phone Number</label>
+          <input class="form-control" formControlName="phoneNumber" />
+          <div class="text-danger" *ngIf="addEmployeeForm.get('phoneNumber')?.invalid && addEmployeeForm.get('phoneNumber')?.touched">
+            Valid phone is required (letters only in this case)
+          </div>
         </div>
 
+        <!-- Email -->
         <div class="col-md-4 mb-3">
-          <label>Date of Birth</label>
-          <input type="date" class="form-control" formControlName="dob" />
+          <label>Email</label>
+          <input class="form-control" formControlName="email" />
+          <div class="text-danger" *ngIf="addEmployeeForm.get('email')?.invalid && addEmployeeForm.get('email')?.touched">
+            Valid email required
+          </div>
         </div>
 
+        <!-- Password -->
+        <div class="col-md-4 mb-3">
+          <label>Password</label>
+          <input type="password" class="form-control" formControlName="password" />
+          <div class="text-danger" *ngIf="addEmployeeForm.get('password')?.touched && addEmployeeForm.get('password')?.invalid">
+            <div *ngIf="addEmployeeForm.get('password')?.errors?.['required']">Password is required</div>
+            <div *ngIf="addEmployeeForm.get('password')?.errors?.['minlength']">Min 6 characters</div>
+          </div>
+        </div>
+
+        <!-- Salary -->
+        <div class="col-md-4 mb-3">
+          <label>Salary</label>
+          <input type="number" class="form-control" formControlName="salary" />
+          <div class="text-danger" *ngIf="addEmployeeForm.get('salary')?.invalid && addEmployeeForm.get('salary')?.touched">
+            Salary is required and must be ≥ 0
+          </div>
+        </div>
+
+        <!-- Gender -->
         <div class="col-md-4 mb-3">
           <label>Gender</label>
           <select class="form-control" formControlName="gender">
@@ -48,35 +83,38 @@
             <option value="Male">Male</option>
             <option value="Female">Female</option>
           </select>
-          <div class="text-danger" *ngIf="isInvalid('gender')">{{ getError('gender') }}</div>
+          <div class="text-danger" *ngIf="addEmployeeForm.get('gender')?.invalid && addEmployeeForm.get('gender')?.touched">
+            Gender is required
+          </div>
         </div>
 
+        <!-- DOB -->
         <div class="col-md-4 mb-3">
-          <label>Email</label>
-          <input type="email" class="form-control" formControlName="email" />
-          <div class="text-danger" *ngIf="isInvalid('email')">{{ getError('email') }}</div>
+          <label>Date of Birth</label>
+          <input type="date" class="form-control" formControlName="dob" />
+          <div class="text-danger" *ngIf="addEmployeeForm.get('dob')?.invalid && addEmployeeForm.get('dob')?.touched">
+            Date of Birth is required
+          </div>
         </div>
 
-        <div class="col-md-4 mb-3">
-          <label>Salary</label>
-          <input type="number" class="form-control" formControlName="salary" />
-          <div class="text-danger" *ngIf="isInvalid('salary')">{{ getError('salary') }}</div>
-        </div>
-
-        <div class="col-md-4 mb-3">
-          <label>Image</label>
-          <input type="file" class="form-control" formControlName="image" />
-        </div>
-
+        <!-- Address -->
         <div class="col-md-4 mb-3">
           <label>Address</label>
           <textarea rows="2" class="form-control" formControlName="address"></textarea>
+          <div class="text-danger" *ngIf="addEmployeeForm.get('address')?.invalid && addEmployeeForm.get('address')?.touched">
+            Address is required
+          </div>
         </div>
       </div>
 
-      <button class="btn btn-success w-25 d-block m-auto" type="submit">
-        <i class="fas fa-save me-1"></i> Submit
-      </button>
+      <div class="d-flex justify-content-center gap-3 mt-4">
+        <button type="submit" class="btn btn-primary" [disabled]="addEmployeeForm.invalid">
+          <i class="fas fa-save me-1"></i> Save Employee
+        </button>
+        <a routerLink="/admin/getemployee" class="btn btn-outline-secondary">
+          <i class="fas fa-list me-1"></i> All Employees
+        </a>
+      </div>
     </form>
   </div>
 </div>
