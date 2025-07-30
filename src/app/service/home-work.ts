@@ -18,4 +18,10 @@ export class HomeWork {
    deleteHomeWork(id:number):Observable<any>{
     return this._HttpClient.delete(`https://localhost:7096/api/CourseSubjectElements/${id}`)
   }
+
+
+  addGrade(data:object):Observable<any>{
+    return this._HttpClient.post(`https://localhost:7096/api/Grades`,data)
+  }
+
 }

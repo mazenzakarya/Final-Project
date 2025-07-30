@@ -45,6 +45,8 @@ onSubmit() {
 
     this._Authentcation.login(this.loginForm.value).subscribe({
       next: (response) => {
+        console.log(response);
+
         setTimeout(() => {  // 2. تأخير عرض الرسالة
           this.isLoading = false;
 
@@ -78,6 +80,8 @@ onSubmit() {
       },
 
       error: (error) => {
+
+
         setTimeout(() => {
           this.isLoading = false;
           this.serverMessage = 'Login failed. Please try again.';

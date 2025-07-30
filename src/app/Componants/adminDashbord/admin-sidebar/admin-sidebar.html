@@ -63,6 +63,7 @@
   </div> -->
   <app-dropdown (linkClicked)="hideSidebarOnMobile()" title="Group" icon="fas fa-users" [links]="[
     { label: 'Add Group', icon: 'fas fa-plus-circle', route: 'Addgroup' },
+    { label: 'Add Std Group', icon: 'fas fa-plus-circle', route: 'AddStdGroup' },
     { label: 'Get Groups', icon: 'fas fa-users', route: 'getgroup' }
   ]">
   </app-dropdown>
@@ -72,6 +73,7 @@
   icon="fas fa-book"
   [links]="[
     { label: 'Add Homework', route: 'Addhomework', icon: 'fas fa-plus-circle' },
+    { label: 'AddGrade', route: 'AddGrade', icon: 'fas fa-clipboard-list' },
     { label: 'Get Homework', route: 'gethomework', icon: 'fas fa-list-ul' }
   ]">
 </app-dropdown>

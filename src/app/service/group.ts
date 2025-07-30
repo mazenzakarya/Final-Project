@@ -20,4 +20,10 @@ getGroup():Observable<any>{
 DeletGroup(id:number):Observable<any>{
   return this._HttpClient.delete(`https://localhost:7096/api/Groups/${id}`)
 }
+
+
+AssignStudent(data:object):Observable<any>
+{
+return this._HttpClient.post(`https://localhost:7096/api/StudentsGroups/assign-student`,data)
+}
 }

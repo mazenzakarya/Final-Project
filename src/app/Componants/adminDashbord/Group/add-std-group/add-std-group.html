@@ -1,0 +1,35 @@
+<div class="container w-50 mt-4">
+  <div class="card shadow-lg">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Assign Student to Group</h4>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="groupId" class="form-label">Group</label>
+          <select class="form-select" formControlName="groupId" id="groupId">
+            <option value="" disabled selected>Select a group</option>
+            <option *ngFor="let group of allGroups" [value]="group.groupsId">
+              {{ group.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="studentId" class="form-label">Student</label>
+          <select class="form-select" formControlName="studentId" id="studentId">
+            <option value="" disabled selected>Select a student</option>
+            <option *ngFor="let student of allStudent" [value]="student.userId">
+              {{ student.name }}
+            </option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-25 m-auto d-block " [disabled]="form.invalid">
+          Assign Student
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

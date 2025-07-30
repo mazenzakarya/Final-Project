@@ -1,35 +1,40 @@
-<div class="container">
-  <h2 class="mb-4">📄 My Assignments</h2>
+<div class="container my-5">
+  <div class="shadow-lg p-4 rounded bg-light border border-2 border-info-subtle">
+    <h4 class="text-center mb-4 text-primary">
+      <i class="bi bi-journal-check me-2"></i>Assignments
+    </h4>
 
-  <div class="row g-4">
-    <!-- Assignment 1 -->
-    <div class="col-md-6">
-      <div class="card shadow-sm border-0 h-100">
-        <div class="card-body">
-          <h5 class="card-title">📘 Programming Basics - Assignment 1</h5>
-          <p class="card-text">
-            <strong>Description:</strong> Solve problems from Chapter 3<br>
-            <strong>Due Date:</strong> 22 July 2025<br>
-            <strong>Status:</strong> <span class="text-danger">Not Submitted</span>
-          </p>
-          <button class="btn btn-primary btn-sm">Submit Assignment</button>
-        </div>
-      </div>
-    </div>
+    <ng-container *ngIf="Assiments?.length > 0; else noData">
+      <table class="table table-bordered table-striped align-middle">
+        <thead class="table-info text-center">
+          <tr>
+            <th><i class="bi bi-book me-1"></i>Course</th>
+            <th><i class="bi bi-journal-text me-1"></i>Subject</th>
+            <th><i class="bi bi-clipboard-check me-1"></i>Description</th>
+            <th><i class="bi bi-calendar-date me-1"></i>Date</th>
+            <th><i class="bi bi-calendar-check me-1"></i>Due Date</th>
+            <th><i class="bi bi-list-ol me-1"></i>Total Marks</th>
+            <th><i class="bi bi-people me-1"></i>Group</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let a of Assiments" class="text-center">
+            <td>{{ a.courseName }}</td>
+            <td>{{ a.subjectName }}</td>
+            <td>{{ a.description }}</td>
+            <td>{{ a.date | date: 'yyyy-MM-dd' }}</td>
+            <td>{{ a.dueDate | date: 'yyyy-MM-dd' }}</td>
+            <td>{{ a.totalMarks }}</td>
+            <td>{{ a.groupName }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
 
-    <!-- Assignment 2 -->
-    <div class="col-md-6">
-      <div class="card shadow-sm border-0 h-100 bg-light-subtle">
-        <div class="card-body">
-          <h5 class="card-title">📗 Math Fundamentals - Assignment 2</h5>
-          <p class="card-text">
-            <strong>Description:</strong> Upload a PDF summary<br>
-            <strong>Due Date:</strong> 15 July 2025<br>
-            <strong>Status:</strong> <span class="text-success">Submitted</span>
-          </p>
-          <a href="#" class="btn btn-outline-secondary btn-sm">View Submission</a>
-        </div>
+    <ng-template #noData>
+      <div class="alert alert-warning text-center fs-5">
+        <i class="bi bi-exclamation-circle me-2"></i>No assignments found.
       </div>
-    </div>
+    </ng-template>
   </div>
 </div>

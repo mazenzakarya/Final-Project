@@ -20,6 +20,8 @@ import { GetemployeeRep } from "./Attendance/getemployee-rep/getemployee-rep";
 import { GetstudentRep } from "./Attendance/getstudent-rep/getstudent-rep";
 import { AddhomeWork } from "./homework/addhome-work/addhome-work";
 import { Gethomework } from "./homework/gethomework/gethomework";
+import { AddStdGroup } from "./Group/add-std-group/add-std-group";
+import { AddGrade } from "./homework/add-grade/add-grade";
 
 
 export const AdminRoutes: Routes = [
@@ -28,6 +30,7 @@ export const AdminRoutes: Routes = [
   { path: 'home', component:Home },
   { path: 'Addcourse', component:AddCourse },
   { path: 'getcourses', component:Getcourses },
+  { path: 'AddStdGroup', component:AddStdGroup },
   { path: 'Addgroup', component:AddGroup },
   { path: 'getgroup', component:GetGroups },
   { path: 'Addsubject', component:AddSubject },
@@ -45,5 +48,6 @@ export const AdminRoutes: Routes = [
   { path: 'student-report', component:GetstudentRep },
   { path: 'employee-report', component: GetemployeeRep},
   { path: 'Addhomework', component: AddhomeWork},
+  { path: 'AddGrade', component: AddGrade},
   { path: 'gethomework', component: Gethomework},
 ];
