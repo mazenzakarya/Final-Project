@@ -1,31 +1,111 @@
-<div class="container my-4">
-  <h2 class="mb-4 text-center">All Transactions</h2>
+<!-- report.component.html -->
+<div class="container mt-4">
+  <div class="card shadow border rounded-3 p-4">
 
-  <table class="table table-bordered table-striped shadow-sm text-center">
-    <thead class="table-dark">
-      <tr>
-        <th>#</th>
-        <th>Type</th>
-        <th>Date</th>
-        <th>Description</th>
-        <th>Amount</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let transaction of transactions; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>
-          <span [ngClass]="{
-            'text-success': transaction.type === 'Income',
-            'text-danger': transaction.type === 'Expense'
-          }">
-            {{ transaction.type }}
-          </span>
-        </td>
-        <td>{{ transaction.date }}</td>
-        <td>{{ transaction.description }}</td>
-        <td>{{ transaction.amount }}</td>
-      </tr>
-    </tbody>
-  </table>
+    <!-- عنوان الصفحة -->
+    <h3 class="mb-4 text-center text-primary">Financial Summary</h3>
+
+    <!-- ملخص الإيرادات والمصاريف والربح -->
+    <div class="row text-center mb-4">
+      <div class="col-md-4">
+        <div class="p-3 rounded shadow-sm bg-light border border-success">
+          <h5><i class="fas fa-hand-holding-usd text-success me-2"></i>Total Revenue</h5>
+          <p class="fs-5 text-success fw-bold">{{ totalRevenue }} EGP</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="p-3 rounded shadow-sm bg-light border border-danger">
+          <h5><i class="fas fa-money-bill-wave text-danger me-2"></i>Total Expenses</h5>
+          <p class="fs-5 text-danger fw-bold">{{ totalExpenses }} EGP</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div
+          class="p-3 rounded shadow-sm bg-light border"
+          [ngClass]="netProfit >= 0 ? 'border-success' : 'border-danger'"
+        >
+          <h5>
+            <i
+              class="fas me-2"
+              [ngClass]="netProfit >= 0 ? 'fa-chart-line text-success' : 'fa-chart-pie text-danger'"
+            ></i>
+            Net Profit
+          </h5>
+          <p
+            class="fs-5 fw-bold mb-1"
+            [ngClass]="netProfit >= 0 ? 'text-success' : 'text-danger'"
+          >
+            {{ netProfit }} EGP
+          </p>
+          <small *ngIf="totalRevenue > 0">
+            Profit Margin:
+            <span [ngClass]="netProfit >= 0 ? 'text-success' : 'text-danger'">
+              {{ (netProfit / totalRevenue * 100) | number:'1.0-2' }}%
+            </span>
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <!-- جدول الإيرادات -->
+    <div class="mb-4">
+      <h5 class="text-success">Paid Fees</h5>
+      <div class="table-responsive shadow-sm border rounded">
+        <table class="table table-bordered table-sm table-striped mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Student Name</th>
+              <th>Course</th>
+              <th>Group</th>
+              <th>Amount</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let fee of paidFees; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ fee.studentName }}</td>
+              <td>{{ fee.courseName }}</td>
+              <td>{{ fee.groupName }}</td>
+              <td>{{ fee.netAmount }} EGP</td>
+              <td>{{ fee.createdAt | date: 'medium' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- جدول المصروفات -->
+    <div>
+      <h5 class="text-danger">Expenses</h5>
+      <div class="table-responsive shadow-sm border rounded">
+        <table class="table table-bordered table-sm table-striped mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Amount</th>
+              <th>Paid By</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let expense of expenses; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ expense.description }}</td>
+              <td>{{ expense.category }}</td>
+              <td>{{ expense.amount }} EGP</td>
+              <td>{{ expense.paidBy }}</td>
+              <td>{{ expense.createdAt | date: 'medium' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
 </div>

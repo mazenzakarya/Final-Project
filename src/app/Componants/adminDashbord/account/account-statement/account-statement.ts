@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { Fees } from '../../../../service/fees';
 
 @Component({
   selector: 'app-account-statement',
@@ -7,12 +8,21 @@ import { Component } from '@angular/core';
   templateUrl: './account-statement.html',
   styleUrl: './account-statement.css'
 })
-export class AccountStatement {
-    transactions = [
-    { type: 'Income', date: '2025-07-01', description: 'Salary', amount: 5000 },
-    { type: 'Expense', date: '2025-07-05', description: 'Rent', amount: 1500 },
-    { type: 'Income', date: '2025-07-10', description: 'Freelance', amount: 1200 },
-    { type: 'Expense', date: '2025-07-15', description: 'Groceries', amount: 600 },
-  ];
+export class AccountStatement implements OnInit {
+     totalRevenue: number = 0;
+  totalExpenses: number = 0;
+  netProfit: number = 0;
+  paidFees: any[] = [];
+  expenses: any[] = [];
 
+private readonly reportService=inject(Fees)
+  ngOnInit(): void {
+    this.reportService.getAllreport().subscribe((res) => {
+      this.totalRevenue = res.totalRevenue;
+      this.totalExpenses = res.totalExpenses;
+      this.netProfit = res.netProfit;
+      this.paidFees = res.paidFees;
+      this.expenses = res.expenses;
+    });
+  }
 }

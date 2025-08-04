@@ -35,10 +35,13 @@ addExpense(feeData: any): Observable<any> {
 }
 
 
+getAllreport():Observable<any> {
+  return this.http.get(`https://localhost:7096/api/Fee/summary`);
+}
+
 getStudentFees(): Observable<any> {
   const user =JSON.parse(localStorage.getItem('user') || '{}');
-
-
   return this.http.get(`https://localhost:7096/api/Fee/student/${user.userId}`);
 }
+
 }
