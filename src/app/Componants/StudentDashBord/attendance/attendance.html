@@ -1,64 +1,62 @@
-<div class="container">
-  <h2 class="mb-4">📅 My Attendance</h2>
-
-  <!-- Programming Basics Attendance -->
-  <div class="mb-4">
-    <h4>📘 Programming Basics</h4>
-    <p><strong>Attendance Rate:</strong> 10 / 12 (83%)</p>
-
-    <table class="table table-bordered">
-      <thead class="table-primary">
-        <tr>
-          <th>Date</th>
-          <th>Lecture</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>10 July 2025</td>
-          <td>Lecture 1 – Intro</td>
-          <td class="text-success">Present ✅</td>
-        </tr>
-        <tr>
-          <td>11 July 2025</td>
-          <td>Lecture 2 – Variables</td>
-          <td class="text-danger">Absent ❌</td>
-        </tr>
-        <tr>
-          <td>13 July 2025</td>
-          <td>Lecture 3 – Conditions</td>
-          <td class="text-success">Present ✅</td>
-        </tr>
-      </tbody>
-    </table>
+<div class="container my-4">
+  <div class="shadow-sm p-4 rounded bg-light border border-info-subtle">
+    <h4 class="text-center mb-4 text-primary">
+      <i class="bi bi-calendar-check me-2"></i> Attendance Records
+    </h4>
+<div class="row mb-4">
+  <div class="col-md-3">
+    <div class="alert alert-success text-center">
+      <i class="bi bi-check2-circle me-1"></i>
+      Present: {{ presentCount }}
+    </div>
   </div>
+  <div class="col-md-3">
+    <div class="alert alert-danger text-center">
+      <i class="bi bi-alarm-fill me-1"></i>
+      Late: {{ lateCount }}
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="alert alert-warning text-center">
+      <i class="bi bi-x-circle-fill me-1"></i>
+      Absent: {{ absentCount }}
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="alert alert-info text-center">
+      <i class="bi bi-bar-chart-fill me-1"></i>
+      Attendance: {{ attendancePercentage }}%
+    </div>
+  </div>
+</div>
 
-  <!-- Math Fundamentals Attendance -->
-  <div>
-    <h4>📗 Math Fundamentals</h4>
-    <p><strong>Attendance Rate:</strong> 8 / 9 (89%)</p>
-
-    <table class="table table-bordered">
-      <thead class="table-success">
+    <table class="table table-bordered table-striped text-center align-middle">
+      <thead class="table-info">
         <tr>
-          <th>Date</th>
-          <th>Lecture</th>
-          <th>Status</th>
+          <th><i class="bi bi-calendar-date me-1"></i>Date</th>
+          <th><i class="bi bi-people-fill me-1"></i>Group</th>
+          <th><i class="bi bi-check-circle me-1"></i>Status</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>10 July 2025</td>
-          <td>Lecture 1 – Numbers</td>
-          <td class="text-success">Present ✅</td>
-        </tr>
-        <tr>
-          <td>12 July 2025</td>
-          <td>Lecture 2 – Fractions</td>
-          <td class="text-success">Present ✅</td>
+        <tr *ngFor="let a of attendancesList">
+          <td>{{ a.date | date: 'yyyy-MM-dd' }}</td>
+          <td>{{ a.groupName }}</td>
+          <td>
+            <span [ngClass]="{
+              'text-success fw-bold': a.status === 'Present',
+              'text-danger fw-bold': a.status === 'Late',
+              'text-warning fw-bold': a.status === 'Absent'
+            }">
+              {{ a.status }}
+            </span>
+          </td>
         </tr>
       </tbody>
     </table>
+
+    <div *ngIf="attendancesList.length === 0" class="alert alert-warning text-center mt-3">
+      <i class="bi bi-info-circle me-2"></i>No attendance records available.
+    </div>
   </div>
 </div>

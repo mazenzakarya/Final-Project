@@ -1,1 +1,48 @@
-<p>getstudent-rep works!</p>
+<form [formGroup]="attendanceForm" (ngSubmit)="getAttendance()" class="p-4 w-50 m-auto mt-4 border rounded bg-light shadow">
+  <h4 class="text-center text-primary mb-4">
+    <i class="bi bi-person-lines-fill me-2"></i> View Attendance by Group
+  </h4>
+
+  <!-- Group Selection -->
+  <div class="mb-3">
+    <label class="form-label">Select Group</label>
+    <select class="form-select" formControlName="groupId">
+      <option [ngValue]="null">-- Select Group --</option>
+      <option *ngFor="let group of groups" [value]="group.groupsId">
+        {{ group.name }} - {{ group.courseName }}
+      </option>
+    </select>
+  </div>
+
+
+  <!-- Submit Button -->
+  <div class="d-flex justify-content-end">
+    <button type="submit" class="btn btn-primary" [disabled]="attendanceForm.invalid">
+      <i class="bi bi-search me-1"></i> Get Attendance
+    </button>
+  </div>
+</form>
+
+<!-- Student Attendance Card -->
+<div *ngIf="students.length > 0" class="card w-50 m-auto mt-4 shadow-sm border-primary">
+  <div class="card-header bg-primary text-white">
+    <i class="bi bi-people-fill me-2"></i> Students in Group
+  </div>
+  <ul class="list-group list-group-flush">
+    <li *ngFor="let student of students" class="list-group-item d-flex justify-content-between align-items-center">
+      <span><i class="bi bi-person-circle me-2 text-secondary"></i>{{ student.name }}</span>
+      <span [ngClass]="{
+        'text-success': student.statusText === '✅ Present',
+        'text-danger': student.statusText === '❌ Absent',
+        'text-warning': student.statusText === '⏰ Late'
+      }">
+        {{ student.statusText }}
+      </span>
+    </li>
+  </ul>
+</div>
+
+<!-- No Data Message -->
+<div *ngIf="students.length === 0 && attendanceForm.valid" class="alert alert-warning w-50 m-auto mt-4">
+  <i class="bi bi-exclamation-circle-fill me-2"></i> No attendance data found for the selected group and date.
+</div>

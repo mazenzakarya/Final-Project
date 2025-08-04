@@ -20,4 +20,8 @@ getStudentsInGroup(groupId: number): Observable<any[]> {
   markAttendance(data: any[]): Observable<any> {
     return this.http.post(`${this.baseUrl}/Attendance/mark`, data);
   }
+   getAttendance(groupId: number): Observable<any> {
+    const url = `${this.baseUrl}/Attendance/${groupId}`;
+    return this.http.get<any>(url);
+  }
 }

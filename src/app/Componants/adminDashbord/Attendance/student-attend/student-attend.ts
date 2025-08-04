@@ -3,10 +3,11 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Attendances } from '../../../../service/attendances';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-student-attend',
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule,CommonModule,RouterLink],
   templateUrl: './student-attend.html',
   styleUrl: './student-attend.css'
 })
@@ -23,7 +24,7 @@ export class StudentAttend {
     this.form = this.fb.group({
       groupId: [null, Validators.required],
       studentId: [null, Validators.required],
-      date: [new Date().toISOString().slice(0, 10), Validators.required],
+      date: [new Date(), Validators.required],
       status: [1, Validators.required],
       isExcepctionSession: [false]
     });
