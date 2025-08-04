@@ -1,0 +1,78 @@
+
+
+<div *ngIf="isLoading" class="fullscreen-loader">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+<div class="container w-75 m-auto mt-2">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white py-2">
+      <h6 class="mb-0">Add Grade</h6>
+    </div>
+
+    <div class="card-body p-3">
+      <form [formGroup]="Gradeform" (ngSubmit)="onSubmit()">
+        <!-- Student Dropdown -->
+        <div class="mb-2">
+          <label for="studentId" class="form-label small">Student</label>
+          <select class="form-select form-select-sm" formControlName="studentId" id="studentId">
+            <option value="" disabled selected>Select student</option>
+            <option *ngFor="let student of allStudent" [value]="student.userId">
+              {{ student.name }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Course Dropdown -->
+        <div class="mb-2">
+          <label for="courseId" class="form-label small">Course</label>
+          <select class="form-select form-select-sm" formControlName="courseId" id="courseId">
+            <option value="" disabled selected>Select course</option>
+            <option *ngFor="let course of AllCource" [value]="course.courseId">
+              {{ course.name }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Subject Dropdown -->
+        <div class="mb-2">
+          <label for="subjectId" class="form-label small">Subject</label>
+          <select class="form-select form-select-sm" formControlName="subjectId" id="subjectId">
+            <option value="" disabled selected>Select subject</option>
+            <option *ngFor="let subject of AllSubject" [value]="subject.courseSubjectId">
+              {{ subject.name }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Element Dropdown -->
+        <div class="mb-2">
+          <label for="elementId" class="form-label small">Homework / Element</label>
+          <select class="form-select form-select-sm" formControlName="elementId" id="elementId">
+            <option value="" disabled selected>Select element</option>
+            <option *ngFor="let element of AllHomeWork" [value]="element.courseSubjectElementsId">
+              {{ element.description }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Score -->
+        <div class="mb-2">
+          <label for="score" class="form-label small">Score</label>
+          <input type="number" class="form-control form-control-sm" formControlName="score" id="score" placeholder="0 - 100" />
+        </div>
+
+        <!-- Notes -->
+        <div class="mb-3">
+          <label for="notes" class="form-label small">Notes</label>
+          <textarea class="form-control form-control-sm" formControlName="notes" id="notes" rows="2" placeholder="Any notes..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-sm w-25 m-auto d-block" [disabled]="Gradeform.invalid">
+          Submit Grade
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<!-- fees.component.html -->
+<div class="container mt-4">
+  <h3 class="text-center text-primary mb-4">Payment Status</h3>
+
+  <div class="text-center">
+    <span
+      class="badge fs-5 px-4 py-2"
+      [ngClass]="isPaid() ? 'bg-success' : 'bg-danger'"
+    >
+      {{ isPaid() ? '✅ Student has paid' : '❌ Student has not paid yet' }}
+    </span>
+  </div>
+
+  <div class="row mt-4" *ngIf="fees.length > 0">
+    <div class="col-md-6 offset-md-3" *ngFor="let fee of fees">
+      <div class="card mb-3 shadow-sm border-0">
+        <div class="card-body">
+          <h5 class="card-title">{{ fee.courseName }} - {{ fee.groupName }}</h5>
+          <p class="card-text">
+            <strong>Amount:</strong> {{ fee.netAmount }} EGP<br>
+            <strong>Date:</strong> {{ fee.createdAt | date:'medium' }}
+          </p>
+          <span
+            class="badge"
+            [ngClass]="{
+              'bg-success': fee.status === 'Paid',
+              'bg-danger': fee.status !== 'Paid'
+            }"
+          >
+            {{ fee.status }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,6 +5,7 @@ import { Assignments } from './assignments/assignments';
 import { Exams } from './exams/exams';
 import { Grades } from './grades/grades';
 import { Attendance } from './attendance/attendance';
+import { fees } from './fees/fees';
 
 export const studentRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -13,5 +14,6 @@ export const studentRoutes: Routes = [
   { path: 'assignments', component: Assignments },
   { path: 'exams', component: Exams },
   { path: 'grades', component: Grades },
-  { path: 'attendance', component: Attendance }
+  { path: 'attendance', component: Attendance },
+  { path: 'Fees', component: fees }
 ];

@@ -1,45 +1,105 @@
-<form [formGroup]="homeworkForm" (ngSubmit)="onSubmit()" class="p-4 w-50 m-auto shadow rounded bg-white">
-  <h4 class="text-center mb-4">Add Homework</h4>
-
-  <div class="mb-3">
-    <label for="group" class="form-label">Group</label>
-    <select id="group" class="form-select" formControlName="group">
-      <option value="">Select Group</option>
-      <option *ngFor="let g of groups" [value]="g">{{ g }}</option>
-    </select>
-    <div *ngIf="f.group.touched && f.group.invalid" class="text-danger">Group is required</div>
+<div *ngIf="isLoading" class="fullscreen-loader">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
   </div>
-
-  <div class="mb-3">
-    <label for="subject" class="form-label">Subject</label>
-    <select id="subject" class="form-select" formControlName="subject">
-      <option value="">Select Subject</option>
-      <option *ngFor="let s of subjects" [value]="s">{{ s }}</option>
-    </select>
-    <div *ngIf="f.subject.touched && f.subject.invalid" class="text-danger">Subject is required</div>
-  </div>
-  <div class="mb-3">
-  <label for="setBy" class="form-label">Set By</label>
-  <select id="setBy" class="form-select" formControlName="setBy">
-    <option value="">Select Teacher</option>
-    <option *ngFor="let t of setByList" [value]="t">{{ t }}</option>
-  </select>
-  <div *ngIf="f.setBy.touched && f.setBy.invalid" class="text-danger">This field is required</div>
 </div>
 
-  <div class="mb-3">
-    <label for="description" class="form-label">Homework Description</label>
-    <input id="description" type="text" class="form-control" formControlName="description">
-    <div *ngIf="f.description.touched && f.description.invalid" class="text-danger">Description is required</div>
-  </div>
+<div class="container mt-3">
+  <div class="card shadow p-4">
+    <div class="text-center mb-4">
+      <i class="fas fa-book-open fa-3x text-primary"></i>
+      <h4 class="mt-2">Add New Homework</h4>
+    </div>
 
-  <div class="mb-3">
-    <label for="dueDate" class="form-label">Due Date</label>
-    <input id="dueDate" type="date" class="form-control" formControlName="dueDate">
-    <div *ngIf="f.dueDate.touched && f.dueDate.invalid" class="text-danger">Due date is required</div>
-  </div>
+    <form [formGroup]="homeworkForm" (ngSubmit)="onSubmit()">
+      <div class="row">
 
-  <div class="text-center">
-    <button class="btn btn-primary w-50 m-auto d-inline" type="submit" [disabled]="homeworkForm.invalid">Submit</button>
+        <!-- Group -->
+        <div class="col-md-6 mb-3">
+          <label>Group</label>
+          <select class="form-control form-select" formControlName="groupId">
+            <option value="">Select Group</option>
+            <option *ngFor="let g of Allgroup" [value]="g.groupsId">{{ g.name }}</option>
+          </select>
+          <div class="text-danger" *ngIf="f['groupId'].touched && f['groupId'].invalid">
+            Group is required.
+          </div>
+        </div>
+
+        <!-- Course -->
+        <div class="col-md-6 mb-3">
+          <label>Course</label>
+          <select class="form-control form-select" formControlName="courseId">
+            <option value="">Select Course</option>
+            <option *ngFor="let c of AllCource" [value]="c.courseId">{{ c.name }}</option>
+          </select>
+          <div class="text-danger" *ngIf="f['courseId'].touched && f['courseId'].invalid">
+            Course is required.
+          </div>
+        </div>
+
+        <!-- Subject -->
+        <div class="col-md-6 mb-3">
+          <label>Subject</label>
+          <select class="form-control form-select" formControlName="subjectId">
+            <option value="">Select Subject</option>
+            <option *ngFor="let s of AllSubject" [value]="s.courseSubjectId">{{ s.name }}</option>
+          </select>
+          <div class="text-danger" *ngIf="f['subjectId'].touched && f['subjectId'].invalid">
+            Subject is required.
+          </div>
+        </div>
+
+        <!-- Total Marks -->
+        <div class="col-md-6 mb-3">
+          <label>Total Marks</label>
+          <input type="number" class="form-control" formControlName="totalMarks" />
+          <div class="text-danger" *ngIf="f['totalMarks'].touched && f['totalMarks'].invalid">
+            Total marks are required.
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="col-12 mb-3">
+          <label>Description</label>
+          <textarea class="form-control" formControlName="description" rows="2"></textarea>
+          <div class="text-danger" *ngIf="f['description'].touched && f['description'].invalid">
+            Description is required.
+          </div>
+        </div>
+
+        <!-- Start Date -->
+        <div class="col-md-6 mb-3">
+          <label>Start Date</label>
+          <input type="date" class="form-control" formControlName="date" />
+          <div class="text-danger" *ngIf="f['date'].touched && f['date'].invalid">
+            Start date is required.
+          </div>
+        </div>
+
+        <!-- Due Date -->
+        <div class="col-md-6">
+          <label>Due Date</label>
+          <input type="date" class="form-control" formControlName="dueDate" />
+          <div class="text-danger" *ngIf="f['dueDate'].touched && f['dueDate'].invalid">
+            Due date is required.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="d-flex justify-content-center gap-3 mt-1">
+        <button type="submit" class="btn btn-primary" [disabled]="homeworkForm.invalid || isLoading">
+          <i class="fas fa-save me-1"></i>
+          <span *ngIf="!isLoading">Save Homework</span>
+          <span *ngIf="isLoading">
+            <span class="spinner-border spinner-border-sm"></span> Loading...
+          </span>
+        </button>
+        <a routerLink="/admin/gethomework" class="btn btn-outline-secondary">
+          <i class="fas fa-list me-1"></i> All Homework
+        </a>
+      </div>
+    </form>
   </div>
-</form>
+</div>

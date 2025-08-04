@@ -1,0 +1,21 @@
+<div class="container mt-4">
+  <h3 class=" text-black">Welcome, {{ userName }}</h3>
+
+  <div *ngIf="groups.length > 0; else noGroups" class="row mt-5">
+    <div class="col-md-6 offset-md-3" *ngFor="let group of groups">
+      <div class="card shadow-sm mb-3 border-0">
+        <div class="card-body">
+          <h5 class="card-title text-primary">{{ group.groupName }}</h5>
+          <p class="card-text">
+            <strong>Course:</strong> {{ group.courseName }}<br>
+            <strong>Start Date:</strong> {{ group.startDate | date:'mediumDate' }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noGroups>
+    <p class="text-center text-muted mt-4">No groups found.</p>
+  </ng-template>
+</div>

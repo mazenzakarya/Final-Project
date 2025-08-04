@@ -33,4 +33,12 @@ addExpense(feeData: any): Observable<any> {
 
   return this.http.post(`${this.baseUrl}/Fee/add-expense`, feeData, { headers });
 }
+
+
+getStudentFees(): Observable<any> {
+  const user =JSON.parse(localStorage.getItem('user') || '{}');
+
+
+  return this.http.get(`https://localhost:7096/api/Fee/student/${user.userId}`);
+}
 }
