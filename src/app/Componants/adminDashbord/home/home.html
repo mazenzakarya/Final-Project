@@ -7,7 +7,7 @@
       <div class="card text-center shadow-sm p-3">
         <div class="fs-2 mb-2 text-primary">👨‍🎓</div>
         <h5 class="card-title">Students</h5>
-        <p class="fs-4 fw-bold text-dark">120</p>
+        <p class="fs-4 fw-bold text-dark">{{stdCount}}</p>
       </div>
     </div>
 
@@ -16,7 +16,7 @@
       <div class="card text-center shadow-sm p-3">
         <div class="fs-2 mb-2 text-success">👩‍🏫</div>
         <h5 class="card-title">Instructors</h5>
-        <p class="fs-4 fw-bold text-dark">15</p>
+        <p class="fs-4 fw-bold text-dark">{{instCount}}</p>
       </div>
     </div>
 
@@ -25,7 +25,7 @@
       <div class="card text-center shadow-sm p-3">
         <div class="fs-2 mb-2 text-warning">🏫</div>
         <h5 class="card-title">Classes</h5>
-        <p class="fs-4 fw-bold text-dark">8</p>
+        <p class="fs-4 fw-bold text-dark">{{groupCount}}</p>
       </div>
     </div>
 
@@ -34,7 +34,7 @@
       <div class="card text-center shadow-sm p-3">
         <div class="fs-2 mb-2 text-danger">📝</div>
         <h5 class="card-title">Assignments</h5>
-        <p class="fs-4 fw-bold text-dark">25</p>
+        <p class="fs-4 fw-bold text-dark">{{AssignmentsCount}}</p>
       </div>
     </div>
 
@@ -43,17 +43,46 @@
       <div class="card text-center shadow-sm p-3">
         <div class="fs-2 mb-2 text-info">📚</div>
         <h5 class="card-title">Courses</h5>
-        <p class="fs-4 fw-bold text-dark">6</p>
+        <p class="fs-4 fw-bold text-dark">{{coursCount}}</p>
       </div>
     </div>
 
     <!-- Payments Total -->
-    <div class="col-md-4 col-lg-3">
-      <div class="card text-center shadow-sm p-3">
-        <div class="fs-2 mb-2 text-secondary">💰</div>
-        <h5 class="card-title">Total Payments</h5>
-        <p class="fs-4 fw-bold text-dark">15,000 EGP</p>
-      </div>
+ <div class="col-md-6 col-lg-4">
+  <div class="card text-center shadow-sm p-3">
+    <div class="text-center mb-3 fs-3 text-dark">
+      📊 Financial Summary
     </div>
+
+    <div class="d-flex justify-content-between mb-2">
+      <span class="text-success fw-semibold">💰 Total Payments:</span>
+      <span class="fw-bold text-dark">
+        {{ totalIncomeCount | number:'1.0-0' }} EGP
+      </span>
+    </div>
+
+    <div class="d-flex justify-content-between mb-2">
+      <span class="text-danger fw-semibold">💸 Total Expenses:</span>
+      <span class="fw-bold text-dark">
+        {{ totalExpensesCount | number:'1.0-0' }} EGP
+      </span>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <span
+        class="fw-semibold"
+        [ngClass]="{
+          'text-success': totalNetProfitCount >= 0,
+          'text-danger': totalNetProfitCount < 0
+        }">
+        📈 Net Profit:
+      </span>
+      <span class="fw-bold text-dark">
+        {{ totalNetProfitCount | number:'1.0-0' }} EGP
+      </span>
+    </div>
+  </div>
+</div>
+
   </div>
 </div>
