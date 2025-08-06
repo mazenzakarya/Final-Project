@@ -1,64 +1,481 @@
-<nav class="navbar navbar-bg  w-100 navbar-expand-sm navbar-light bg-light">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
   <div class="container">
-    <a class="navbar-brand logo" href="#">Learn Academy</a>
-    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
-      aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="#">
+<img src="assets/logo.png" alt="Logo" class="hero-image " style="width: 50px; height: 50px; filter: drop-shadow(-3px 4px 6px grey);" />      UC Math Kids
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="collapsibleNavId">
-      <ul class="navbar-nav ms-auto   social-icons">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <i class="fab fa-facebook-f"></i>
+          <a class="nav-link" (click)="scrollToSection('home')">Home</a>
         </li>
         <li class="nav-item">
-          <i class="fab fa-twitter"></i>
+          <a class="nav-link" (click)="scrollToSection('services')">Services</a>
         </li>
         <li class="nav-item">
-          <i class="fab fa-instagram"></i>
+          <a class="nav-link" (click)="scrollToSection('about')">About</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" (click)="scrollToSection('contact')">Contact</a>
         </li>
         <li class="nav-item">
-          <i class="fab fa-linkedin-in"></i>
+          <a class="nav-link btn btn-primary ms-2" routerLink="/login">Login</a>
         </li>
       </ul>
-
-
     </div>
   </div>
 </nav>
 
-
-<section class="position-relative Section">
-
-
-
-  <!------------------------------------------------------------->
-
-
-  <video autoplay muted loop>
-    <source src="assets/course-video.mp4" type="video/mp4">
-  </video>
-  <div class="position-absolute bg-overLay"></div>
-  <div class="card-body">
-
-
-
-  </div>
-
-  <div class="position-absolute top-50 start info translate-middle   p-4 z-2">
-    <h3>Hello Students</h3>
-    <h4>Welcome to learning</h4>
-    <p class="mt-3 mb-4 px-2">
-      Welcome to LearnAcademy — your smart path to modern learning.<br>
-      Whether you're a student, parent, or teacher, we’re here to support your journey. Learn. Grow. Succeed.
-
-
-    </p>
-<button routerLink="/login" class="btn btn-join px-4">Join Us Now!</button>
+<!-- Hero Section -->
+<section id="home" class="hero-section">
+  <div class="hero-overlay"></div>
+  <div class="container">
+    <div class="row align-items-center min-vh-100">
+      <div class="col-lg-6">
+        <div class="hero-content">
+          <h1 class="toast-title" data-aos="fade-up" data-aos-duration="1000">
+            MASTER MATHEMATICS
+            <br />
+            <span class="text-primary">LIKE A PRO</span>
+          </h1>
+          <p
+            class="hero-subtitle"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            data-aos-delay="200"
+          >
+            🎮 Transform your child's mathematical journey with cutting-edge
+            learning technology, expert tutors, and interactive programs that
+            make math FUN and ACCESSIBLE! 🚀
+          </p>
+          <div
+            class="hero-buttons"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            data-aos-delay="400"
+          >
+            <button
+              class="btn bg-primary btn-lg me-3 text-light"
+              routerLink="/login"
+            >
+              LOGIN NOW
+            </button>
+            <a
+              href="https://www.facebook.com/share/r/19LbcowNzL/"
+              class="btn btn-outline-primary btn-lg"
+              target="_blank"
+              >WATCH DEMO</a
+            >
+          </div>
+          <div
+            class="hero-stats mt-4"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            data-aos-delay="600"
+          >
+            <div
+              class="stat-item"
+              data-aos="zoom-in"
+              data-aos-duration="800"
+              data-aos-delay="700"
+            >
+              <h3>{{ studentsCount }}+</h3>
+              <p>😊 Happy Students</p>
+            </div>
+            <div
+              class="stat-item"
+              data-aos="zoom-in"
+              data-aos-duration="800"
+              data-aos-delay="900"
+            >
+              <h3>{{ tutorsCount }}+</h3>
+              <p>👨‍🏫 Expert Tutors</p>
+            </div>
+            <div
+              class="stat-item"
+              data-aos="zoom-in"
+              data-aos-duration="800"
+              data-aos-delay="1100"
+            >
+              <h3>{{ successRate }}%</h3>
+              <p>🏆 Success Rate</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div
+          class="hero-image"
+          data-aos="fade-left"
+          data-aos-duration="1200"
+          data-aos-delay="300"
+        >
+          <img src="assets/studg.png" alt="Math Learning" class="img-fluid" />
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
+<!-- Features Section -->
+<section id="services" class="features-section py-5">
+  <div class="container">
+    <div class="row text-center mb-5">
+      <div class="col-lg-8 mx-auto">
+        <h2 class="section-title" data-aos="fade-up" data-aos-duration="1000">
+          WHY CHOOSE UC MATH KIDS?
+        </h2>
+        <p
+          class="section-subtitle"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-delay="200"
+        >
+          🎯 We're not just teaching math - we're revolutionizing how children
+          learn it! 🎨
+        </p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div
+        class="col-lg-4 col-md-6"
+        data-aos="fade-up"
+        data-aos-duration="800"
+        data-aos-delay="100"
+      >
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-brain"></i>
+          </div>
+          <h4>🎮 INTERACTIVE LEARNING</h4>
+          <p>
+            Dive into mathematics through cutting-edge games, hands-on
+            activities, and real-world applications that make learning EXPLOSIVE
+            and unforgettable! 🎯
+          </p>
+        </div>
+      </div>
+      <div
+        class="col-lg-4 col-md-6"
+        data-aos="fade-up"
+        data-aos-duration="800"
+        data-aos-delay="200"
+      >
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h4>👨‍🏫 EXPERT TUTORS</h4>
+          <p>
+            Learn from certified mathematics ROCKSTARS who specialize in making
+            complex concepts CRYSTAL CLEAR for young minds! ⭐
+          </p>
+        </div>
+      </div>
+      <div
+        class="col-lg-4 col-md-6"
+        data-aos="fade-up"
+        data-aos-duration="800"
+        data-aos-delay="300"
+      >
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h4>📊 PERSONALIZED PROGRESS</h4>
+          <p>
+            Track your child's mathematical growth with INSANE progress reports
+            and customized learning plans that adapt to their needs! 📈
+          </p>
+        </div>
+      </div>
+      <div
+        class="col-lg-4 col-md-6"
+        data-aos="fade-up"
+        data-aos-duration="800"
+        data-aos-delay="400"
+      >
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-laptop"></i>
+          </div>
+          <h4>💻 DIGITAL PLATFORM</h4>
+          <p>
+            Access our MASSIVE learning management system with interactive
+            lessons, practice exercises, and INSTANT feedback! ⚡
+          </p>
+        </div>
+      </div>
+      <div
+        class="col-lg-4 col-md-6"
+        data-aos="fade-up"
+        data-aos-duration="800"
+        data-aos-delay="500"
+      >
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-trophy"></i>
+          </div>
+          <h4>🏆 ACHIEVEMENT REWARDS</h4>
+          <p>
+            Motivate learning through our EPIC reward system that celebrates
+            milestones and encourages continuous mathematical exploration! 🎁
+          </p>
+        </div>
+      </div>
+      <div
+        class="col-lg-4 col-md-6"
+        data-aos="fade-up"
+        data-aos-duration="800"
+        data-aos-delay="600"
+      >
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h4>⏰ FLEXIBLE SCHEDULING</h4>
+          <p>
+            Choose from various time slots and learning formats that fit your
+            family's schedule and your child's learning preferences! 🎯
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- About Section -->
+<section id="about" class="about-section py-5 bg-light">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1000">
+        <div class="about-content">
+          <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">
+            ABOUT UC MATH KIDS
+          </h2>
+          <p
+            class="lead mb-4"
+            data-aos="fade-up"
+            data-aos-duration="800"
+            data-aos-delay="200"
+          >
+            🎯 We're PASSIONATE about revolutionizing how children learn
+            mathematics! Our mission is to build UNSTOPPABLE confidence, foster
+            CRAZY curiosity, and develop ROCK-SOLID mathematical foundations
+            that last a lifetime! 🌟
+          </p>
+          <p
+            class="mb-4"
+            data-aos="fade-up"
+            data-aos-duration="800"
+            data-aos-delay="400"
+          >
+            Founded by experienced educators, UC Math Kids combines traditional
+            teaching excellence with cutting-edge technology to create an
+            engaging learning environment where every child can THRIVE! 🚀
+          </p>
+          <div class="about-features">
+            <div class="about-feature">
+              <i class="fas fa-check-circle text-primary"></i>
+              <span>📚 Age-appropriate curriculum</span>
+            </div>
+            <div class="about-feature">
+              <i class="fas fa-check-circle text-primary"></i>
+              <span>👥 Small group and individual sessions</span>
+            </div>
+            <div class="about-feature">
+              <i class="fas fa-check-circle text-primary"></i>
+              <span>📊 Regular progress assessments</span>
+            </div>
+            <div class="about-feature">
+              <i class="fas fa-check-circle text-primary"></i>
+              <span>👨‍👩‍👧‍👦 Parent involvement and support</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
+        <div class="about-image">
+          <img
+            src="assets/cartoon.png"
+            alt="About UC Math Kids"
+            class="img-fluid rounded"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- CTA Section -->
+<section class="cta-section py-5">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-lg-8 mx-auto">
+        <h2 class="text mb-4" data-aos="fade-up" data-aos-duration="1000">
+          🚀 READY TO TRANSFORM YOUR CHILD'S MATH JOURNEY?
+        </h2>
+        <p
+          class="text mb-4"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-delay="200"
+        >
+          Join hundreds of families who have already discovered the JOY of
+          learning mathematics with UC Math Kids! 🌟
+        </p>
+        <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+          <button class="btn btn-danger btn-lg me-3" routerLink="/login">
+            LOGIN NOW
+          </button>
+          <a
+            href="https://api.whatsapp.com/send/?phone=01143921476&text&type=phone_number&app_absent=0"
+            class="btn btn-success btn-lg"
+            target="_blank"
+          >
+            CONTACT US
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- Contact Section -->
+<section id="contact" class="contact-section py-5">
+  <div class="container">
+    <div class="row text-center mb-5">
+      <div class="col-lg-8 mx-auto">
+        <h2 class="section-title" data-aos="fade-up" data-aos-duration="1000">
+          📞 GET IN TOUCH WITH US
+        </h2>
+        <p
+          class="section-subtitle"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-delay="200"
+        >
+          Ready to start your child's mathematical journey? Contact us today! 🌟
+        </p>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div
+          class="contact-info"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-delay="300"
+        >
+          <div class="row text-center">
+            <div class="col-md-4 mb-4">
+              <div
+                class="contact-item h-100 d-flex flex-column justify-content-center"
+              >
+                <i class="fas fa-phone fa-2x text-primary mb-3"></i>
+                <h5>📞 Call Us</h5>
+                <p>+20 1143921476</p>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div
+                class="contact-item h-100 d-flex flex-column justify-content-center"
+              >
+                <i class="fas fa-envelope fa-2x text-primary mb-3"></i>
+                <h5>📧 Email Us</h5>
+                <p>info&#64;ucmathkids.com</p>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div
+                class="contact-item h-100 d-flex flex-column justify-content-center"
+              >
+                <i class="fas fa-map-marker-alt fa-2x text-primary mb-3"></i>
+                <h5>📍 Visit Us</h5>
+                <p>Villa 44, Katameya, Third Settlement - Egypt</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- Footer -->
+<footer class="footer py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <h5 class="text mb-3">
+          <i class="fas fa-calculator me-2"></i>
+          UC Math Kids
+        </h5>
+        <p class="text-muted">
+          Empowering children to excel in mathematics through innovative
+          learning experiences and expert guidance.
+        </p>
+      </div>
+      <div class="col-lg-4">
+        <h6 class="text mb-3">Quick Links</h6>
+        <ul class="list-unstyled d-flex gap-3">
+          <li>
+            <a class="text-muted" (click)="scrollToSection('home')">Home</a>
+          </li>
 
+          <li>
+            <a class="text-muted" (click)="scrollToSection('services')"
+              >Services</a
+            >
+          </li>
+          <li>
+            <a class="text-muted" (click)="scrollToSection('about')"
+              >About Us</a
+            >
+          </li>
+          <li>
+            <a class="text-muted" (click)="scrollToSection('contact')"
+              >Contact</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6 class="text-white mb-3">Connect With Us</h6>
+        <div class="social-links">
+          <a
+            href="https://www.facebook.com/p/Uc-Math-Kids-100076303966719/"
+            class="social-link"
+            target="_blank"
+          >
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="social-link">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="social-link">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="social-link">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <hr class="my-4" />
+    <div class="row">
+      <div class="col-12 text-center">
+        <p class="text-muted mb-0">© 2025 UC Math Kids. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>
