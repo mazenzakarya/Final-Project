@@ -28,21 +28,13 @@
           <label>Course</label>
           <select class="form-control" formControlName="courseId" >
             <option value="">Select Course</option>
-            <option *ngFor="let course of courses" [value]="course.courseId">{{ course.name }}</option>
+            <option *ngFor="let course of courses" [value]="course.courseId">{{ course.name }} - {{ course.description }}</option>
           </select>
           <div class="text-danger" *ngIf="f['courseId'].touched && f['courseId'].invalid">
             Course is required.
           </div>
         </div>
 
-        <!-- Level Description (ReadOnly) -->
-        <div class="col-md-6 mb-3">
-          <label>Level Description</label>
-          <input class="form-control" formControlName="levelDescription" readonly />
-          <div class="text-danger" *ngIf="f['levelDescription'].touched && f['levelDescription'].invalid">
-            Level description is required.
-          </div>
-        </div>
 
         <!-- Instructor -->
         <div class="col-md-6 mb-3">
