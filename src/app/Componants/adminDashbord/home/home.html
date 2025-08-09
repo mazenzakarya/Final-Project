@@ -1,88 +1,85 @@
 <div class="container mt-5">
+  <h2 class="mb-4 text-center">Welcome, {{ userName }}</h2>
 
-  <h2 class="mb-3">Welcome, {{ userName }}</h2>
-  <div class="row g-4">
+  <div class="row relative-on-sm justify-content-center g-4">
     <!-- Students Count -->
-    <div class="col-md-4 col-lg-3">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card text-center shadow-sm p-3">
         <div class="fs-2 mb-2 text-primary">👨‍🎓</div>
         <h5 class="card-title">Students</h5>
-        <p class="fs-4 fw-bold text-dark">{{stdCount}}</p>
+        <p class="fs-4 fw-bold text-dark">{{ stdCount }}</p>
       </div>
     </div>
 
     <!-- Instructors Count -->
-    <div class="col-md-4 col-lg-3">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card text-center shadow-sm p-3">
         <div class="fs-2 mb-2 text-success">👩‍🏫</div>
         <h5 class="card-title">Instructors</h5>
-        <p class="fs-4 fw-bold text-dark">{{instCount}}</p>
+        <p class="fs-4 fw-bold text-dark">{{ instCount }}</p>
       </div>
     </div>
 
     <!-- Classes Count -->
-    <div class="col-md-4 col-lg-3">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card text-center shadow-sm p-3">
         <div class="fs-2 mb-2 text-warning">🏫</div>
         <h5 class="card-title">Classes</h5>
-        <p class="fs-4 fw-bold text-dark">{{groupCount}}</p>
+        <p class="fs-4 fw-bold text-dark">{{ groupCount }}</p>
       </div>
     </div>
 
-    <!-- Tasks Count -->
-    <div class="col-md-4 col-lg-3">
+    <!-- Assignments Count -->
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card text-center shadow-sm p-3">
         <div class="fs-2 mb-2 text-danger">📝</div>
         <h5 class="card-title">Assignments</h5>
-        <p class="fs-4 fw-bold text-dark">{{AssignmentsCount}}</p>
+        <p class="fs-4 fw-bold text-dark">{{ AssignmentsCount }}</p>
       </div>
     </div>
 
     <!-- Courses Count -->
-    <div class="col-md-4 col-lg-3">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card text-center shadow-sm p-3">
         <div class="fs-2 mb-2 text-info">📚</div>
         <h5 class="card-title">Courses</h5>
-        <p class="fs-4 fw-bold text-dark">{{coursCount}}</p>
+        <p class="fs-4 fw-bold text-dark">{{ coursCount }}</p>
       </div>
     </div>
 
-    <!-- Payments Total -->
- <div class="col-md-6 col-lg-4">
-  <div class="card text-center shadow-sm p-3">
-    <div class="text-center mb-3 fs-3 text-dark">
-      📊 Financial Summary
-    </div>
+    <!-- Financial Summary -->
+    <div class="col-12 col-md-8 col-lg-5">
+      <div class="card text-center shadow-sm p-3">
+        <div class="mb-3 fs-4 text-dark">📊 Financial Summary</div>
 
-    <div class="d-flex justify-content-between mb-2">
-      <span class="text-success fw-semibold">💰 Total Payments:</span>
-      <span class="fw-bold text-dark">
-        {{ totalIncomeCount | number:'1.0-0' }} EGP
-      </span>
-    </div>
+        <div class="d-flex justify-content-between mb-2">
+          <span class="text-success fw-semibold">💰 Total Payments:</span>
+          <span class="fw-bold text-dark">
+            {{ totalIncomeCount | number:'1.0-0' }} EGP
+          </span>
+        </div>
 
-    <div class="d-flex justify-content-between mb-2">
-      <span class="text-danger fw-semibold">💸 Total Expenses:</span>
-      <span class="fw-bold text-dark">
-        {{ totalExpensesCount | number:'1.0-0' }} EGP
-      </span>
-    </div>
+        <div class="d-flex justify-content-between mb-2">
+          <span class="text-danger fw-semibold">💸 Total Expenses:</span>
+          <span class="fw-bold text-dark">
+            {{ totalExpensesCount | number:'1.0-0' }} EGP
+          </span>
+        </div>
 
-    <div class="d-flex justify-content-between">
-      <span
-        class="fw-semibold"
-        [ngClass]="{
-          'text-success': totalNetProfitCount >= 0,
-          'text-danger': totalNetProfitCount < 0
-        }">
-        📈 Net Profit:
-      </span>
-      <span class="fw-bold text-dark">
-        {{ totalNetProfitCount | number:'1.0-0' }} EGP
-      </span>
+        <div class="d-flex justify-content-between">
+          <span
+            class="fw-semibold"
+            [ngClass]="{
+              'text-success': totalNetProfitCount >= 0,
+              'text-danger': totalNetProfitCount < 0
+            }">
+            📈 Net Profit:
+          </span>
+          <span class="fw-bold text-dark">
+            {{ totalNetProfitCount | number:'1.0-0' }} EGP
+          </span>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
   </div>
 </div>

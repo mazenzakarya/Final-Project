@@ -22,7 +22,12 @@ private readonly http=inject(HttpClient)
 
   // Post a fee
   addFee(feeData: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/Fee`, feeData);
+      const token = localStorage.getItem('token');
+
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`
+  });
+    return this.http.post(`${this.baseUrl}/Fee`, feeData, { headers });
   }
 addExpense(feeData: any): Observable<any> {
   const token = localStorage.getItem('token');

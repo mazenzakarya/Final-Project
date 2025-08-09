@@ -62,6 +62,7 @@
               <th>Group</th>
               <th>Amount</th>
               <th>Date</th>
+              <th>recordedBy</th>
             </tr>
           </thead>
           <tbody>
@@ -72,6 +73,7 @@
               <td>{{ fee.groupName }}</td>
               <td>{{ fee.netAmount }} EGP</td>
               <td>{{ fee.createdAt | date: 'medium' }}</td>
+              <td>{{ fee.recordedBy}}</td>
             </tr>
           </tbody>
         </table>

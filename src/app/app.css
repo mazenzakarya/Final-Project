@@ -1,3 +1,9 @@
 body{
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+@media (max-width: 767.98px) {
+  .relative-on-sm {
+    position: relative;
+    right: 28px;
+  }
+}

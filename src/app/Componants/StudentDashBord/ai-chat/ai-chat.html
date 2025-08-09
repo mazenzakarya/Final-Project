@@ -1,0 +1,26 @@
+<div class="chat-container">
+  <h3>AI Chat</h3>
+
+  <div class="chat-box">
+    <div *ngFor="let msg of messages" [ngClass]="['chat-message', msg.type]">
+      <div class="chat-bubble">
+        <span class="icon">
+          <i class="fas" [ngClass]="msg.type === 'user' ? 'fa-user' : 'fa-robot'"></i>
+        </span>
+        <span class="message-text">{{ msg.text }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-input">
+    <input
+      type="text"
+      [(ngModel)]="userQuestion"
+      placeholder="Type your question..."
+      (keydown.enter)="ask()"
+    />
+    <button (click)="ask()" [disabled]="isLoading || !userQuestion.trim()">
+      <i class="fas fa-paper-plane"></i>
+    </button>
+  </div>
+</div>

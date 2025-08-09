@@ -6,6 +6,7 @@ import { Exams } from './exams/exams';
 import { Grades } from './grades/grades';
 import { Attendance } from './attendance/attendance';
 import { fees } from './fees/fees';
+import { AiChat } from './ai-chat/ai-chat';
 
 export const studentRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -15,5 +16,6 @@ export const studentRoutes: Routes = [
   { path: 'exams', component: Exams },
   { path: 'grades', component: Grades },
   { path: 'attendance', component: Attendance },
-  { path: 'Fees', component: fees }
+  { path: 'Fees', component: fees },
+  { path: 'AiChat', component: AiChat }
 ];

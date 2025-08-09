@@ -217,4 +217,8 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
     const element = event.target;
     element.style.transform = 'scale(1)';
   }
+
+
+
+  
 }

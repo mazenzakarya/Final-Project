@@ -1,0 +1,15 @@
+.fullscreen-loader {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.6);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.student-card {
+  max-width: 100%;
+  border-radius: 10px;
+  background-color: #fff;
+}

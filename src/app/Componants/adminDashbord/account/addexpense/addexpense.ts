@@ -11,7 +11,14 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './addexpense.css'
 })
 export class Addexpense {
-
+  categories: string[] = [
+    'Rent',
+    'Utilities',
+    'Salaries',
+    'Maintenance',
+    'Supplies',
+    'Miscellaneous'
+  ];
   private _FormBuilder = inject(FormBuilder)
   private _ToastrService = inject(ToastrService)
   private readonly _Fees = inject(Fees)

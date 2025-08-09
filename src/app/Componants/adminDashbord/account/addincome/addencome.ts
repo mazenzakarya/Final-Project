@@ -87,7 +87,9 @@ onStudentChange(event: Event): void {
   }
 
   this.feeService.addFee(this.feeForm.value).subscribe({
-    next: () => {
+    next: (res) => {
+      console.log(res);
+
       this.toastr.success('✅ Fee added successfully!');
       this.resetForm();
     },

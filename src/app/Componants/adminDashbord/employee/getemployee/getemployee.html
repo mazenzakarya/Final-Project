@@ -44,6 +44,9 @@
           <td>{{ instructor.address }}</td>
           <td>{{ instructor.dob | date: 'yyyy-MM-dd' }}</td>
           <td>
+            <button class="btn btn-sm btn-warning me-1" (click)="editUser(instructor)">
+              <i class="fas fa-edit me-1"></i> Edit
+            </button>
             <button class="btn btn-sm btn-danger" (click)="deleteInstructor(instructor.userId)">
               <i class="fas fa-trash-alt me-1"></i> Delete
             </button>
@@ -57,3 +60,60 @@
     </div>
   </div>
 </div>
+
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form [formGroup]="editUserForm" (ngSubmit)="onUpdate()">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Instructor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="mb-2">
+            <input class="form-control form-control-sm" formControlName="name" type="text" placeholder="Name">
+          </div>
+          <div class="mb-2">
+            <input class="form-control form-control-sm" formControlName="email" type="email" placeholder="Email">
+          </div>
+          <div class="mb-2">
+            <input class="form-control form-control-sm" formControlName="phoneNumber" type="text" placeholder="Phone Number">
+          </div>
+          <div class="mb-2">
+            <input class="form-control form-control-sm" formControlName="salary" type="number" placeholder="Salary">
+          </div>
+          <div class="mb-2">
+            <select class="form-select form-select-sm" formControlName="gender">
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <div class="mb-2">
+            <input class="form-control form-control-sm" formControlName="address" type="text" placeholder="Address">
+          </div>
+          <div class="mb-2">
+            <input class="form-control form-control-sm" formControlName="password" type="password" placeholder="Password">
+          </div>
+          <div class="mb-2">
+            <input class="form-control form-control-sm" formControlName="dob" type="date" placeholder="Date of Birth">
+          </div>
+          <div class="mb-2">
+            <input class="form-control form-control-sm" formControlName="role" type="text" placeholder="Role">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary btn-sm" [disabled]="editUserForm.invalid">
+            Save Changes
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

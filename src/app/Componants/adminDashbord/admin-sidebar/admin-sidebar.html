@@ -17,6 +17,8 @@
   <a class="nav-link py-3 px-2 rounded" (linkClicked)="hideSidebarOnMobile()"   routerLink="home" routerLinkActive="active-link">
     <i class="fas fa-home me-2"></i> Home
   </a>
+
+
   <!-- Dropdown for students -->
   <app-dropdown (linkClicked)="hideSidebarOnMobile()" title="Student" icon="fas fa-user-graduate" [links]="[
     { label: 'Add Student', icon: 'fas fa-user-plus', route: 'Addstudent' },
