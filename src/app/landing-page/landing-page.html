@@ -1,19 +1,11 @@
-
-
-
-
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top">
   <div class="container">
     <a class="navbar-brand" href="#">
-<img src="assets/logo.png" alt="Logo" class="hero-image " style="width: 50px; height: 50px; filter: drop-shadow(-3px 4px 6px grey);" />      UC Math Kids
+      <img src="assets/logo.png" alt="Logo" class="hero-image "
+        style="width: 50px; height: 50px; filter: drop-shadow(-3px 4px 6px grey);" /> UC Math Kids
     </a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -33,15 +25,57 @@
         </li>
         <li class="nav-item">
           <a class="nav-link btn btn-primary ms-2" routerLink="/login">Login</a>
-        </li>
-              <li class="nav-item">
-          <a class="nav-link btn btn-primary ms-2" routerLink="/publicChat">Ai Chat</a>
+        <li class="nav-item">
+          <a class="nav-link btn btn-primary ms-2" (click)="toggleChat()">Ai Chat</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
 
+
+<div class="chat-overlay" *ngIf="showChat">
+  <div class="chat-container shadow rounded">
+
+    <!-- Header -->
+    <div class="chat-header bg-primary text-white p-3 rounded-top d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">AI Chat</h5>
+      <button class="btn btn-danger btn-sm  btn-close-small" (click)="toggleChat()">X</button>
+    </div>
+
+    <!-- Messages -->
+    <div class="chat-box" #scrollArea>
+      <div *ngFor="let msg of messages" [ngClass]="['chat-message', msg.type]">
+        <div class="chat-bubble">
+          <span class="icon">
+            <i class="fas" [ngClass]="msg.type === 'user' ? 'fa-user' : 'fa-robot'"></i>
+          </span>
+          <span class="message-text">{{ msg.text }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input -->
+<div class="chat-input p-3 border-top d-flex align-items-center">
+  <input
+    type="text"
+    class="form-control me-2"
+    style="height: 50px;"
+    [(ngModel)]="userQuestion"
+    placeholder="Type your question..."
+    (keydown.enter)="ask(scrollArea)"
+  />
+  <button
+    class="btn btn-primary"
+    (click)="ask(scrollArea)"
+    [disabled]="isLoading || !userQuestion.trim()"
+  >
+    <i class="fas fa-paper-plane"></i>
+  </button>
+</div>
+
+  </div>
+</div>
 <!-- Hero Section -->
 <section id="home" class="hero-section">
   <div class="hero-overlay"></div>
@@ -54,65 +88,28 @@
             <br />
             <span class="text-primary">LIKE A PRO</span>
           </h1>
-          <p
-            class="hero-subtitle"
-            data-aos="fade-up"
-            data-aos-duration="1000"
-            data-aos-delay="200"
-          >
+          <p class="hero-subtitle" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
             🎮 Transform your child's mathematical journey with cutting-edge
             learning technology, expert tutors, and interactive programs that
             make math FUN and ACCESSIBLE! 🚀
           </p>
-          <div
-            class="hero-buttons"
-            data-aos="fade-up"
-            data-aos-duration="1000"
-            data-aos-delay="400"
-          >
-            <button
-              class="btn bg-primary btn-lg me-3 text-light"
-              routerLink="/login"
-            >
+          <div class="hero-buttons" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+            <button class="btn bg-primary btn-lg me-3 text-light" routerLink="/login">
               LOGIN NOW
             </button>
-            <a
-              href="https://www.facebook.com/share/r/19LbcowNzL/"
-              class="btn btn-outline-primary btn-lg"
-              target="_blank"
-              >WATCH DEMO</a
-            >
+            <a href="https://www.facebook.com/share/r/19LbcowNzL/" class="btn btn-outline-primary btn-lg"
+              target="_blank">WATCH DEMO</a>
           </div>
-          <div
-            class="hero-stats mt-4"
-            data-aos="fade-up"
-            data-aos-duration="1000"
-            data-aos-delay="600"
-          >
-            <div
-              class="stat-item"
-              data-aos="zoom-in"
-              data-aos-duration="800"
-              data-aos-delay="700"
-            >
+          <div class="hero-stats mt-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
+            <div class="stat-item" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="700">
               <h3>{{ studentsCount }}+</h3>
               <p>😊 Happy Students</p>
             </div>
-            <div
-              class="stat-item"
-              data-aos="zoom-in"
-              data-aos-duration="800"
-              data-aos-delay="900"
-            >
+            <div class="stat-item" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="900">
               <h3>{{ tutorsCount }}+</h3>
               <p>👨‍🏫 Expert Tutors</p>
             </div>
-            <div
-              class="stat-item"
-              data-aos="zoom-in"
-              data-aos-duration="800"
-              data-aos-delay="1100"
-            >
+            <div class="stat-item" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="1100">
               <h3>{{ successRate }}%</h3>
               <p>🏆 Success Rate</p>
             </div>
@@ -120,12 +117,7 @@
         </div>
       </div>
       <div class="col-lg-6">
-        <div
-          class="hero-image"
-          data-aos="fade-left"
-          data-aos-duration="1200"
-          data-aos-delay="300"
-        >
+        <div class="hero-image" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="300">
           <img src="assets/studg (1).png" alt="Math Learning" class="img-fluid" />
         </div>
       </div>
@@ -141,24 +133,14 @@
         <h2 class="section-title" data-aos="fade-up" data-aos-duration="1000">
           WHY CHOOSE UC MATH KIDS?
         </h2>
-        <p
-          class="section-subtitle"
-          data-aos="fade-up"
-          data-aos-duration="1000"
-          data-aos-delay="200"
-        >
+        <p class="section-subtitle" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
           🎯 We're not just teaching math - we're revolutionizing how children
           learn it! 🎨
         </p>
       </div>
     </div>
     <div class="row g-4">
-      <div
-        class="col-lg-4 col-md-6"
-        data-aos="fade-up"
-        data-aos-duration="800"
-        data-aos-delay="100"
-      >
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
         <div class="feature-card">
           <div class="feature-icon">
             <i class="fas fa-brain"></i>
@@ -171,12 +153,7 @@
           </p>
         </div>
       </div>
-      <div
-        class="col-lg-4 col-md-6"
-        data-aos="fade-up"
-        data-aos-duration="800"
-        data-aos-delay="200"
-      >
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
         <div class="feature-card">
           <div class="feature-icon">
             <i class="fas fa-users"></i>
@@ -188,12 +165,7 @@
           </p>
         </div>
       </div>
-      <div
-        class="col-lg-4 col-md-6"
-        data-aos="fade-up"
-        data-aos-duration="800"
-        data-aos-delay="300"
-      >
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
         <div class="feature-card">
           <div class="feature-icon">
             <i class="fas fa-chart-line"></i>
@@ -205,12 +177,7 @@
           </p>
         </div>
       </div>
-      <div
-        class="col-lg-4 col-md-6"
-        data-aos="fade-up"
-        data-aos-duration="800"
-        data-aos-delay="400"
-      >
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
         <div class="feature-card">
           <div class="feature-icon">
             <i class="fas fa-laptop"></i>
@@ -222,12 +189,7 @@
           </p>
         </div>
       </div>
-      <div
-        class="col-lg-4 col-md-6"
-        data-aos="fade-up"
-        data-aos-duration="800"
-        data-aos-delay="500"
-      >
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
         <div class="feature-card">
           <div class="feature-icon">
             <i class="fas fa-trophy"></i>
@@ -239,12 +201,7 @@
           </p>
         </div>
       </div>
-      <div
-        class="col-lg-4 col-md-6"
-        data-aos="fade-up"
-        data-aos-duration="800"
-        data-aos-delay="600"
-      >
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="600">
         <div class="feature-card">
           <div class="feature-icon">
             <i class="fas fa-clock"></i>
@@ -269,23 +226,13 @@
           <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">
             ABOUT UC MATH KIDS
           </h2>
-          <p
-            class="lead mb-4"
-            data-aos="fade-up"
-            data-aos-duration="800"
-            data-aos-delay="200"
-          >
+          <p class="lead mb-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
             🎯 We're PASSIONATE about revolutionizing how children learn
             mathematics! Our mission is to build UNSTOPPABLE confidence, foster
             CRAZY curiosity, and develop ROCK-SOLID mathematical foundations
             that last a lifetime! 🌟
           </p>
-          <p
-            class="mb-4"
-            data-aos="fade-up"
-            data-aos-duration="800"
-            data-aos-delay="400"
-          >
+          <p class="mb-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
             Founded by experienced educators, UC Math Kids combines traditional
             teaching excellence with cutting-edge technology to create an
             engaging learning environment where every child can THRIVE! 🚀
@@ -312,11 +259,7 @@
       </div>
       <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
         <div class="about-image">
-          <img
-            src="assets/cartoon.png"
-            alt="About UC Math Kids"
-            class="img-fluid rounded"
-          />
+          <img src="assets/cartoon.png" alt="About UC Math Kids" class="img-fluid rounded" />
         </div>
       </div>
     </div>
@@ -331,12 +274,7 @@
         <h2 class="text mb-4" data-aos="fade-up" data-aos-duration="1000">
           🚀 READY TO TRANSFORM YOUR CHILD'S MATH JOURNEY?
         </h2>
-        <p
-          class="text mb-4"
-          data-aos="fade-up"
-          data-aos-duration="1000"
-          data-aos-delay="200"
-        >
+        <p class="text mb-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
           Join hundreds of families who have already discovered the JOY of
           learning mathematics with UC Math Kids! 🌟
         </p>
@@ -344,11 +282,8 @@
           <button class="btn btn-danger btn-lg me-3" routerLink="/login">
             LOGIN NOW
           </button>
-          <a
-            href="https://api.whatsapp.com/send/?phone=01143921476&text&type=phone_number&app_absent=0"
-            class="btn btn-success btn-lg"
-            target="_blank"
-          >
+          <a href="https://api.whatsapp.com/send/?phone=01143921476&text&type=phone_number&app_absent=0"
+            class="btn btn-success btn-lg" target="_blank">
             CONTACT US
           </a>
         </div>
@@ -365,47 +300,31 @@
         <h2 class="section-title" data-aos="fade-up" data-aos-duration="1000">
           📞 GET IN TOUCH WITH US
         </h2>
-        <p
-          class="section-subtitle"
-          data-aos="fade-up"
-          data-aos-duration="1000"
-          data-aos-delay="200"
-        >
+        <p class="section-subtitle" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
           Ready to start your child's mathematical journey? Contact us today! 🌟
         </p>
       </div>
     </div>
     <div class="row justify-content-center">
       <div class="col-lg-8">
-        <div
-          class="contact-info"
-          data-aos="fade-up"
-          data-aos-duration="1000"
-          data-aos-delay="300"
-        >
+        <div class="contact-info" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
           <div class="row text-center">
             <div class="col-md-4 mb-4">
-              <div
-                class="contact-item h-100 d-flex flex-column justify-content-center"
-              >
+              <div class="contact-item h-100 d-flex flex-column justify-content-center">
                 <i class="fas fa-phone fa-2x text-primary mb-3"></i>
                 <h5>📞 Call Us</h5>
                 <p>+20 1143921476</p>
               </div>
             </div>
             <div class="col-md-4 mb-4">
-              <div
-                class="contact-item h-100 d-flex flex-column justify-content-center"
-              >
+              <div class="contact-item h-100 d-flex flex-column justify-content-center">
                 <i class="fas fa-envelope fa-2x text-primary mb-3"></i>
                 <h5>📧 Email Us</h5>
                 <p>info&#64;ucmathkids.com</p>
               </div>
             </div>
             <div class="col-md-4 mb-4">
-              <div
-                class="contact-item h-100 d-flex flex-column justify-content-center"
-              >
+              <div class="contact-item h-100 d-flex flex-column justify-content-center">
                 <i class="fas fa-map-marker-alt fa-2x text-primary mb-3"></i>
                 <h5>📍 Visit Us</h5>
                 <p>Villa 44, Katameya, Third Settlement - Egypt</p>
@@ -440,30 +359,20 @@
           </li>
 
           <li>
-            <a class="text-muted" (click)="scrollToSection('services')"
-              >Services</a
-            >
+            <a class="text-muted" (click)="scrollToSection('services')">Services</a>
           </li>
           <li>
-            <a class="text-muted" (click)="scrollToSection('about')"
-              >About Us</a
-            >
+            <a class="text-muted" (click)="scrollToSection('about')">About Us</a>
           </li>
           <li>
-            <a class="text-muted" (click)="scrollToSection('contact')"
-              >Contact</a
-            >
+            <a class="text-muted" (click)="scrollToSection('contact')">Contact</a>
           </li>
         </ul>
       </div>
       <div class="col-lg-4">
         <h6 class="text-white mb-3">Connect With Us</h6>
         <div class="social-links">
-          <a
-            href="https://www.facebook.com/p/Uc-Math-Kids-100076303966719/"
-            class="social-link"
-            target="_blank"
-          >
+          <a href="https://www.facebook.com/p/Uc-Math-Kids-100076303966719/" class="social-link" target="_blank">
             <i class="fab fa-facebook-f"></i>
           </a>
           <a href="#" class="social-link">

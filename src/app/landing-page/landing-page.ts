@@ -1,11 +1,15 @@
-import { Component, OnInit, HostListener, AfterViewInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit, HostListener, AfterViewInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import * as AOS from 'aos';
+import { AiChats } from '../service/ai-chats';
+import { finalize } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-landing-page',
-  imports: [RouterLink],
+  imports: [RouterLink,CommonModule ,ReactiveFormsModule,FormsModule],
   templateUrl: './landing-page.html',
   styleUrl: './landing-page.css',
 })
@@ -220,5 +224,40 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
 
 
 
-  
+
+
+
+    private readonly _aiChat = inject(AiChats);
+
+    userQuestion: string = '';
+    isLoading: boolean = false;
+    messages: { text: string, type: 'user' | 'ai' }[] = [];
+  ask(scrollArea: HTMLElement) {
+    if (!this.userQuestion.trim()) return;
+
+    const questionText = this.userQuestion.trim();
+    this.messages.push({ type: 'user', text: questionText });
+    this.isLoading = true;
+
+    this._aiChat.publicAskQuestion({ question: questionText })
+      .pipe(finalize(() => {
+        this.isLoading = false;
+        this.userQuestion = '';
+        setTimeout(() => {
+          scrollArea.scrollTop = scrollArea.scrollHeight;
+        }, 100);
+      }))
+      .subscribe({
+        next: (res) => {
+          this.messages.push({ type: 'ai', text: res.answer });
+        },
+        error: () => {
+          this.messages.push({ type: 'ai', text: 'Something went wrong. Try again later.' });
+        }
+      });
+  }
+showChat=false;
+  toggleChat() {
+    this.showChat = !this.showChat;
+  }
 }

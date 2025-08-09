@@ -21,9 +21,7 @@ export class AiChats {
   }
 
     publicAskQuestion(question: object): Observable<any> {
-    // const headers = new HttpHeaders({
-    //   'Content-Type': 'application/json',
-    // });
+ 
     return this._http.post(`https://localhost:7096/api/Ai/publicChat`, question);
   }
 

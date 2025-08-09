@@ -19,12 +19,12 @@
     <h5 class="mb-3">Edit Account</h5>
     <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
       <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
+        <label for="name" class="form-label">New user Name</label>
         <input id="name" formControlName="name" type="text" class="form-control">
       </div>
 
       <div class="mb-3">
-        <label for="passwordHash" class="form-label">Password</label>
+        <label for="passwordHash" class="form-label">New Password</label>
         <input id="passwordHash" formControlName="passwordHash" type="password" class="form-control">
       </div>
 
