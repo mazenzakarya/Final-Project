@@ -1,10 +1,40 @@
 <nav class="navbar stdBgnav navbar-expand-lg  shadow-sm rounded py-3 mb-4 px-4">
   <div class="container-fluid justify-content-between">
-<span class="navbar-brand mb-0 h5 text-white">
-  <i class="fas fa-chalkboard-teacher me-2"></i> Student Panel
-</span>
-<button class="btn btn-outline-light btn-sm" (click)="logout()">
-  <i class="fas fa-sign-out-alt me-1"></i> Logout
-</button>
+    <span class="navbar-brand mb-0 h5 text-white">
+      <i class="fas fa-chalkboard-teacher me-2"></i> Student Panel
+    </span>
+    <div>
+      <button class="btn btn-outline-light btn-sm me-2" (click)="openEditForm()">
+        <i class="fas fa-user-edit me-1"></i> Edit Account
+      </button>
+
+      <button class="btn btn-outline-light btn-sm" (click)="logout()">
+        <i class="fas fa-sign-out-alt me-1"></i> Logout
+      </button>
+    </div>
   </div>
 </nav>
+<div class="modal-backdrop" *ngIf="showEditForm">
+  <div class="modal-card shadow p-4 bg-white rounded">
+    <h5 class="mb-3">Edit Account</h5>
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input id="name" formControlName="name" type="text" class="form-control">
+      </div>
+
+      <div class="mb-3">
+        <label for="passwordHash" class="form-label">Password</label>
+        <input id="passwordHash" formControlName="passwordHash" type="password" class="form-control">
+      </div>
+
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-secondary me-2" type="button" (click)="closeEditForm()">Cancel</button>
+        <button class="btn btn-primary" type="submit" [disabled]="editForm.invalid || loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+          {{ loading ? 'Saving...' : 'Save Changes' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
