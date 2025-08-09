@@ -56,23 +56,13 @@
     </div>
 
     <!-- Input -->
-<div class="chat-input p-3 border-top d-flex align-items-center">
-  <input
-    type="text"
-    class="form-control me-2"
-    style="height: 50px;"
-    [(ngModel)]="userQuestion"
-    placeholder="Type your question..."
-    (keydown.enter)="ask(scrollArea)"
-  />
-  <button
-    class="btn btn-primary"
-    (click)="ask(scrollArea)"
-    [disabled]="isLoading || !userQuestion.trim()"
-  >
-    <i class="fas fa-paper-plane"></i>
-  </button>
-</div>
+    <div class="chat-input p-3 border-top d-flex align-items-center">
+      <input type="text" class="form-control me-2" style="height: 50px;" [(ngModel)]="userQuestion"
+        placeholder="Type your question..." (keydown.enter)="ask(scrollArea)" />
+      <button class="btn btn-primary" (click)="ask(scrollArea)" [disabled]="isLoading || !userQuestion.trim()">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </div>
 
   </div>
 </div>

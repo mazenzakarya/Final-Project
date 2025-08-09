@@ -11,5 +11,11 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class Sidebar {
 
+sidebarOpen = true;
 
+closeSidebarOnMobile() {
+  if (window.innerWidth < 992) {
+    this.sidebarOpen = false;
+  }
+}
 }

@@ -3,3 +3,25 @@
   color: #1097cd;
   font-weight: 500;
 }
+.sidebar {
+  width: 250px;
+  transition: transform 0.3s ease;
+}
+
+/* في الشاشات الصغيرة، لما sidebar مقفول نخليها مخفية خارج الشاشة */
+@media (max-width: 991.98px) { /* أقل من lg */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1050;
+    background-color: #f8f9fa; /* نفس لون الخلفية */
+    transform: translateX(0);
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  }
+
+  .sidebar.sidebar-closed {
+    transform: translateX(-100%);
+  }
+}
